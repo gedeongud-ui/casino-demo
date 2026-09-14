@@ -3,117 +3,361 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Super U Brazzaville - Catalogue & Arrivages</title>
-    <!-- Lien vers les icônes FontAwesome -->
+    <title>Super U Brazzaville - Catalogue & Commandes en Ligne</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
+        :root {
+            --primary: #00539f;
+            --accent: #e60012;
+            --whatsapp: #25d366;
+            --bg-light: #f4f6f8;
+            --text-dark: #333;
+        }
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
-        body { background-color: #f4f6f8; color: #333; }
-        
-        /* En-tête */
-        header { background-color: #00539f; color: white; padding: 15px 20px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
-        header h1 { font-size: 1.5rem; display: flex; align-items: center; gap: 10px; }
-        .wa-header-btn { background-color: #25d366; color: white; padding: 8px 15px; border-radius: 20px; text-decoration: none; font-weight: bold; font-size: 0.9rem; }
+        body { background-color: var(--bg-light); color: var(--text-dark); padding-bottom: 80px; }
 
-        /* Bannière principale */
-        .hero { background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('https://images.unsplash.com/photo-1534723452862-4c874018d66d?auto=format&fit=crop&w=1200&q=80') center/cover; color: white; text-align: center; padding: 60px 20px; }
-        .hero h2 { font-size: 2rem; margin-bottom: 10px; }
-        .hero p { font-size: 1.1rem; margin-bottom: 20px; }
+        /* Header */
+        header { background-color: var(--primary); color: white; padding: 15px 20px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 2px 5px rgba(0,0,0,0.1); position: sticky; top: 0; z-index: 100; }
+        header h1 { font-size: 1.4rem; display: flex; align-items: center; gap: 10px; }
+        .header-contacts { display: flex; gap: 10px; }
+        .btn-mini { background: var(--whatsapp); color: white; padding: 6px 12px; border-radius: 20px; text-decoration: none; font-weight: bold; font-size: 0.85rem; display: flex; align-items: center; gap: 5px; }
+        .btn-mail { background: #555; }
 
-        /* Conteneur principal */
+        /* Bandeau Promo Flash */
+        .promo-banner { background: var(--accent); color: white; text-align: center; padding: 10px; font-weight: bold; font-size: 0.95rem; animation: pulse 2s infinite; }
+        @keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.85; } 100% { opacity: 1; } }
+
+        /* Hero & Recherche */
+        .hero { background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://images.unsplash.com/photo-1534723452862-4c874018d66d?auto=format&fit=crop&w=1200&q=80') center/cover; color: white; text-align: center; padding: 50px 20px; }
+        .hero h2 { font-size: 1.8rem; margin-bottom: 10px; }
+        .search-box { margin-top: 20px; display: inline-flex; width: 100%; max-width: 500px; background: white; border-radius: 30px; overflow: hidden; box-shadow: 0 4px 10px rgba(0,0,0,0.2); }
+        .search-box input { flex: 1; padding: 12px 20px; border: none; outline: none; font-size: 1rem; }
+        .search-box button { background: var(--accent); color: white; border: none; padding: 0 20px; cursor: pointer; font-size: 1rem; }
+
+        /* Grille des 3 Blocs Clés */
         .container { max-width: 1100px; margin: 30px auto; padding: 0 15px; }
-        .section-title { font-size: 1.5rem; margin-bottom: 20px; color: #00539f; border-left: 5px solid #00539f; padding-left: 10px; }
+        .grid-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; margin-bottom: 40px; }
+        .feature-card { background: white; border-radius: 12px; padding: 25px; text-align: center; box-shadow: 0 2px 8px rgba(0,0,0,0.05); cursor: pointer; transition: transform 0.2s, border-color 0.2s; border: 2px solid transparent; text-decoration: none; color: inherit; display: block; }
+        .feature-card:hover { transform: translateY(-5px); border-color: var(--primary); }
+        .feature-card i { font-size: 2.5rem; color: var(--primary); margin-bottom: 15px; }
+        .feature-card h3 { font-size: 1.2rem; margin-bottom: 8px; }
+        .feature-card p { font-size: 0.9rem; color: #666; }
 
-        /* Grille des produits (Style E-commerce Propre) */
-        .product-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; }
-        .product-card { background: white; border-radius: 10px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.05); display: flex; flex-direction: column; justify-content: space-between; transition: transform 0.2s; }
-        .product-card:hover { transform: translateY(-5px); }
-        .product-img { height: 180px; width: 100%; object-fit: cover; }
+        /* Catalogue & Rayons */
+        .section-title { font-size: 1.4rem; margin: 30px 0 15px 0; color: var(--primary); border-left: 5px solid var(--primary); padding-left: 10px; display: flex; justify-content: space-between; align-items: center; }
+        .filter-tags { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 20px; }
+        .tag { background: white; border: 1px solid #ccc; padding: 6px 14px; border-radius: 20px; cursor: pointer; font-size: 0.9rem; font-weight: 500; }
+        .tag.active, .tag:hover { background: var(--primary); color: white; border-color: var(--primary); }
+
+        .product-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 20px; }
+        .product-card { background: white; border-radius: 10px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.05); display: flex; flex-direction: column; justify-content: space-between; position: relative; }
+        .product-img { height: 160px; width: 100%; object-fit: cover; }
         .product-info { padding: 15px; }
-        .product-title { font-size: 1.1rem; font-weight: bold; margin-bottom: 8px; }
-        .product-badge { display: inline-block; background-color: #e3f2fd; color: #00539f; padding: 4px 8px; border-radius: 4px; font-size: 0.8rem; margin-bottom: 12px; }
+        .product-badge { display: inline-block; background-color: #e3f2fd; color: var(--primary); padding: 3px 8px; border-radius: 4px; font-size: 0.75rem; margin-bottom: 8px; font-weight: bold; }
+        .product-title { font-size: 1rem; font-weight: bold; margin-bottom: 5px; }
         
-        /* Bouton Commander WhatsApp par produit */
-        .whatsapp-btn { background-color: #25d366; color: white; text-align: center; padding: 10px; text-decoration: none; font-weight: bold; display: block; border-radius: 0 0 10px 10px; transition: background 0.2s; }
-        .whatsapp-btn:hover { background-color: #1ebe57; }
+        /* Sélection Produit / Panier */
+        .product-action { padding: 10px 15px; background: #fafafa; border-top: 1px solid #eee; display: flex; align-items: center; justify-content: space-between; }
+        .checkbox-container { display: flex; align-items: center; gap: 8px; font-size: 0.9rem; font-weight: 600; cursor: pointer; }
+        .checkbox-container input { width: 18px; height: 18px; cursor: pointer; accent-color: var(--primary); }
 
-        /* Pied de page */
-        footer { background-color: #1a1a1a; color: white; text-align: center; padding: 30px 20px; margin-top: 50px; font-size: 0.9rem; }
+        /* Panier Flottant en bas */
+        #floating-cart { position: fixed; bottom: 0; left: 0; width: 100%; background: #222; color: white; padding: 15px 20px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 -4px 15px rgba(0,0,0,0.3); z-index: 1000; transform: translateY(100%); transition: transform 0.3s ease; }
+        #floating-cart.visible { transform: translateY(0); }
+        .cart-btns { display: flex; gap: 10px; }
+        .btn-order-wa { background: var(--whatsapp); color: white; border: none; padding: 10px 18px; border-radius: 5px; font-weight: bold; cursor: pointer; display: flex; align-items: center; gap: 6px; }
+        .btn-order-mail { background: #0078d4; color: white; border: none; padding: 10px 18px; border-radius: 5px; font-weight: bold; cursor: pointer; display: flex; align-items: center; gap: 6px; }
+
+        /* Admin / Gestionnaire Caché */
+        .admin-trigger { text-align: center; margin-top: 50px; font-size: 0.85rem; color: #888; }
+        .admin-trigger span { cursor: pointer; text-decoration: underline; }
+        #admin-panel { display: none; background: white; padding: 25px; border-radius: 10px; margin-top: 20px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); border-top: 4px solid var(--accent); }
+        #admin-panel input, #admin-panel select { width: 100%; padding: 10px; margin-bottom: 12px; border: 1px solid #ccc; border-radius: 5px; }
+
+        footer { background-color: #1a1a1a; color: white; text-align: center; padding: 30px 20px; margin-top: 40px; font-size: 0.9rem; }
     </style>
 </head>
 <body>
 
-    <!-- En-tête -->
+    <!-- Header -->
     <header>
         <h1><i class="fa-solid fa-cart-shopping"></i> Super U Brazzaville</h1>
-        <a href="https://wa.me/242060000000?text=Bonjour,%20je%20souhaite%20commander." target="_blank" class="wa-header-btn">
-            <i class="fa-brands fa-whatsapp"></i> Contact Direct
-        </a>
+        <div class="header-contacts">
+            <a href="https://wa.me/242050447163?text=Bonjour,%20je%20souhaite%20des%20renseignements." target="_blank" class="btn-mini">
+                <i class="fa-brands fa-whatsapp"></i> WhatsApp
+            </a>
+            <a href="mailto:blessingtsiobinda@gmail.com" class="btn-mini btn-mail">
+                <i class="fa-solid fa-envelope"></i> E-mail
+            </a>
+        </div>
     </header>
 
-    <!-- Bannière -->
-    <div class="hero">
-        <h2>Vos Arrivages & Produits Disponibles</h2>
-        <p>Commandez en un clic sur WhatsApp, retirez en magasin ou faites-vous livrer !</p>
+    <!-- Bandeau Promo -->
+    <div class="promo-banner">
+        🔥 ARRIVAGES & PROMOTIONS DE LA SEMAINE : Venez découvrir nos nouveautés en magasin !
     </div>
 
-    <!-- Catalogue des Produits -->
-    <div class="container">
-        <h3 class="section-title">Nos Rayons Populaires (Sans Prix)</h3>
-        
-        <div class="product-grid">
-            <!-- Produit 1 -->
-            <div class="product-card">
-                <div>
-                    <img src="https://images.unsplash.com/photo-1550583724-b2692b85b150?auto=format&fit=crop&w=500&q=80" alt="Produits Laitiers" class="product-img">
-                    <div class="product-info">
-                        <span class="product-badge">Rayon Frais</span>
-                        <div class="product-title">Lait & Produits Laitiers</div>
-                        <p style="font-size: 0.9rem; color: #666;">Sélection de laits, yaourts et fromages frais arrivés cette semaine.</p>
-                    </div>
-                </div>
-                <a href="https://wa.me/242060000000?text=Bonjour,%20je%20suis%20intéressé(e)%20par%20les%20Produits%20Laitiers%20vus%20sur%20le%20site." target="_blank" class="whatsapp-btn">
-                    <i class="fa-brands fa-whatsapp"></i> Demander sur WhatsApp
-                </a>
-            </div>
-
-            <!-- Produit 2 -->
-            <div class="product-card">
-                <div>
-                    <img src="https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=500&q=80" alt="Épicerie" class="product-img">
-                    <div class="product-info">
-                        <span class="product-badge">Épicerie Générale</span>
-                        <div class="product-title">Riz, Huiles & Pâtes</div>
-                        <p style="font-size: 0.9rem; color: #666;">Les indispensables du quotidien pour toute la famille en grands formats.</p>
-                    </div>
-                </div>
-                <a href="https://wa.me/242060000000?text=Bonjour,%20je%20suis%20intéressé(e)%20par%20les%20produits%20d'Épicerie%20vus%20sur%20le%20site." target="_blank" class="whatsapp-btn">
-                    <i class="fa-brands fa-whatsapp"></i> Demander sur WhatsApp
-                </a>
-            </div>
-
-            <!-- Produit 3 -->
-            <div class="product-card">
-                <div>
-                    <img src="https://images.unsplash.com/photo-1610832958506-aa56368176cf?auto=format&fit=crop&w=500&q=80" alt="Fruits et Légumes" class="product-img">
-                    <div class="product-info">
-                        <span class="product-badge">Fruits & Légumes</span>
-                        <div class="product-title">Arrivage de Saison</div>
-                        <p style="font-size: 0.9rem; color: #666;">Fruits et légumes frais sélectionnés rigoureusement chaque matin.</p>
-                    </div>
-                </div>
-                <a href="https://wa.me/242060000000?text=Bonjour,%20je%20suis%20intéressé(e)%20par%20les%20Fruits%20et%20Légumes%20vus%20sur%20le%20site." target="_blank" class="whatsapp-btn">
-                    <i class="fa-brands fa-whatsapp"></i> Demander sur WhatsApp
-                </a>
-            </div>
+    <!-- Hero & Recherche -->
+    <div class="hero">
+        <h2>Votre Supermarché Moderne</h2>
+        <p>Sélectionnez vos produits ou plats préférés et commandez en un clic sans prix affichés !</p>
+        <div class="search-box">
+            <input type="text" id="searchInput" placeholder="Rechercher un produit, un plat, un gâteau..." onkeyup="filterProducts()">
+            <button><i class="fa-solid fa-search"></i></button>
         </div>
     </div>
 
-    <!-- Pied de page -->
+    <div class="container">
+
+        <!-- 3 Blocs Principaux (Localisation, Restaurant, Rayons) -->
+        <div class="grid-cards">
+            <!-- 1. Localisation -->
+            <a href="https://www.google.com/maps/search/Super+U+Brazzaville/" target="_blank" class="feature-card">
+                <i class="fa-solid fa-location-dot"></i>
+                <h3>1. Localisation Super U</h3>
+                <p>Trouvez facilement notre magasin au cœur de Brazzaville sur Google Maps.</p>
+            </a>
+
+            <!-- 2. Restaurant & Traiteur -->
+            <div class="feature-card" onclick="filterByRayon('Restaurant')">
+                <i class="fa-solid fa-utensils"></i>
+                <h3>2. Service Restaurant & Traiteur</h3>
+                <p>Découvrez nos plats cuisinés, pâtisseries et gâteaux frais à commander.</p>
+            </div>
+
+            <!-- 3. Rayons Supermarché -->
+            <div class="feature-card" onclick="filterByRayon('Tous')">
+                <i class="fa-solid fa-boxes-stacked"></i>
+                <h3>3. Rayons & Produits</h3>
+                <p>Parcourez l'épicerie, le frais, les boissons et bien plus encore.</p>
+            </div>
+        </div>
+
+        <!-- Filtres par Rayons -->
+        <div class="section-title">
+            <span>Catalogue & Produits Disponibles</span>
+        </div>
+        <div class="filter-tags">
+            <div class="tag active" onclick="filterByRayon('Tous')">Tous les articles</div>
+            <div class="tag" onclick="filterByRayon('Restaurant')">🍔 Plats & Gâteaux (Restaurant)</div>
+            <div class="tag" onclick="filterByRayon('Frais')">🥛 Produits Frais & Laitiers</div>
+            <div class="tag" onclick="filterByRayon('Epicerie')">🍚 Épicerie & Boissons</div>
+        </div>
+
+        <!-- Grille Dynamique des Produits -->
+        <div class="product-grid" id="productGrid">
+            <!-- Les produits seront chargés ici dynamiquement -->
+        </div>
+
+        <!-- Espace Administrateur Caché (Protégé par mot de passe) -->
+        <div class="admin-trigger">
+            <span onclick="toggleAdminPanel()"><i class="fa-solid fa-lock"></i> Accès Gestionnaire (Admin)</span>
+        </div>
+
+        <div id="admin-panel">
+            <h3 style="margin-bottom: 15px; color: var(--accent);">Panneau de Gestion Sécurisé</h3>
+            <p style="font-size: 0.85rem; color: #666; margin-bottom: 15px;">Entrez le mot de passe pour ajouter un nouveau produit ou plat au catalogue :</p>
+            <input type="password" id="adminPass" placeholder="Mot de passe (ex: superu2026)">
+            <input type="text" id="newTitle" placeholder="Nom du produit ou plat">
+            <select id="newRayon">
+                <option value="Restaurant">Restaurant (Plat/Gâteau)</option>
+                <option value="Frais">Rayon Frais</option>
+                <option value="Epicerie">Épicerie</option>
+            </select>
+            <input type="text" id="newImg" placeholder="Lien de l'image (URL photo)">
+            <button onclick="addNewProduct()" style="background: var(--primary); color: white; border: none; padding: 10px 20px; border-radius: 5px; font-weight: bold; cursor: pointer; width: 100%;">Ajouter au catalogue</button>
+        </div>
+
+    </div>
+
+    <!-- Panne de Commande Flottant -->
+    <div id="floating-cart">
+        <div>
+            <strong>Sélection : <span id="cartCount">0</span> article(s)</strong>
+        </div>
+        <div class="cart-btns">
+            <button class="btn-order-wa" onclick="sendOrder('whatsapp')">
+                <i class="fa-brands fa-whatsapp"></i> Commander (WhatsApp)
+            </button>
+            <button class="btn-order-mail" onclick="sendOrder('mail')">
+                <i class="fa-solid fa-envelope"></i> Commander (E-mail)
+            </button>
+        </div>
+    </div>
+
     <footer>
-        <p>&copy; 2026 Super U Brazzaville - Maquette de Démonstration Web</p>
-        <p style="font-size: 0.8rem; color: #888; margin-top: 5px;">Développé sur mesure pour optimiser l'engagement client.</p>
+        <p>&copy; 2026 Super U Brazzaville - Solution Web Professionnelle</p>
+        <p style="font-size: 0.8rem; color: #888; margin-top: 5px;">Développé par Blessing Tsiobinda</p>
     </footer>
 
+    <script>
+        // Base de données initiale (Modifiable par le gestionnaire)
+        let products = [
+            { id: 1, title: "Poulet Braisé & Alloco", rayon: "Restaurant", img: "https://images.unsplash.com/photo-1555939594-58d7cb561ad1?auto=format&fit=crop&w=500&q=80", badge: "Plat du Chef" },
+            { id: 2, title: "Gâteau d'Anniversaire Chocolat", rayon: "Restaurant", img: "https://images.unsplash.com/photo-1578985545062-69928b1d9587?auto=format&fit=crop&w=500&q=80", badge: "Pâtisserie" },
+            { id: 3, title: "Pack Lait UHT & Yaourts Frais", rayon: "Frais", img: "https://images.unsplash.com/photo-1550583724-b2692b85b150?auto=format&fit=crop&w=500&q=80", badge: "Rayon Frais" },
+            { id: 4, title: "Huile Végétale & Sac de Riz 25kg", rayon: "Epicerie", img: "https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=500&q=80", badge: "Épicerie" },
+            { id: 5, title: "Jus de Fruits Naturels 1L", rayon: "Epicerie", img: "https://images.unsplash.com/photo-1613478223719-2ab802602423?auto=format&fit=crop&w=500&q=80", badge: "Boissons" }
+        ];
+
+        let currentFilter = 'Tous';
+
+        // Affichage des produits
+        function renderProducts() {
+            const grid = document.getElementById('productGrid');
+            grid.innerHTML = '';
+
+            let filtered = products.filter(p => {
+                let matchesRayon = (currentFilter === 'Tous' || p.rayon === currentFilter);
+                return matchesRayon;
+            });
+
+            if(filtered.length === 0) {
+                grid.innerHTML = '<p style="grid-column: 1/-1; text-align: center; color: #777; padding: 30px;">Aucun produit trouvé dans cette catégorie.</p>';
+                return;
+            }
+
+            filtered.forEach(p => {
+                let card = document.createElement('div');
+                card.className = 'product-card';
+                card.innerHTML = `
+                    <div>
+                        <img src="${p.img}" alt="${p.title}" class="product-img">
+                        <div class="product-info">
+                            <span class="product-badge">${p.badge}</span>
+                            <div class="product-title">${p.title}</div>
+                        </div>
+                    </div>
+                    <div class="product-action">
+                        <label class="checkbox-container">
+                            <input type="checkbox" value="${p.title}" onchange="updateCart()"> Sélectionner
+                        </label>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        // Filtrer par Rayon
+        function filterByRayon(rayon) {
+            currentFilter = rayon;
+            document.querySelectorAll('.tag').forEach(t => t.classList.remove('active'));
+            event && event.target && event.target.classList.add('active');
+            renderProducts();
+        }
+
+        // Barre de recherche
+        function filterProducts() {
+            let query = document.getElementById('searchInput').value.toLowerCase();
+            const grid = document.getElementById('productGrid');
+            grid.innerHTML = '';
+
+            let filtered = products.filter(p => p.title.toLowerCase().includes(query));
+
+            if(filtered.length === 0) {
+                grid.innerHTML = '<p style="grid-column: 1/-1; text-align: center; color: #777; padding: 30px;">Aucun résultat pour votre recherche.</p>';
+                return;
+            }
+
+            filtered.forEach(p => {
+                let card = document.createElement('div');
+                card.className = 'product-card';
+                card.innerHTML = `
+                    <div>
+                        <img src="${p.img}" alt="${p.title}" class="product-img">
+                        <div class="product-info">
+                            <span class="product-badge">${p.badge}</span>
+                            <div class="product-title">${p.title}</div>
+                        </div>
+                    </div>
+                    <div class="product-action">
+                        <label class="checkbox-container">
+                            <input type="checkbox" value="${p.title}" onchange="updateCart()"> Sélectionner
+                        </label>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        // Gestion du Panier (Sélection)
+        function updateCart() {
+            let checkboxes = document.querySelectorAll('.product-action input[type="checkbox"]:checked');
+            let count = checkboxes.length;
+            document.getElementById('cartCount').innerText = count;
+
+            let cartBar = document.getElementById('floating-cart');
+            if(count > 0) {
+                cartBar.classList.add('visible');
+            } else {
+                cartBar.classList.remove('visible');
+            }
+        }
+
+        // Envoyer la commande (WhatsApp ou Mail)
+        function sendOrder(type) {
+            let checkboxes = document.querySelectorAll('.product-action input[type="checkbox"]:checked');
+            if(checkboxes.length === 0) return;
+
+            let itemsList = "";
+            checkboxes.forEach((cb, index) => {
+                itemsList += `%0A- ${cb.value}`;
+            });
+
+            let message = `Bonjour Super U Brazzaville, je souhaite commander les articles suivants :${itemsList}%0AMerci de me donner les prix et les modalités de livraison.`;
+
+            if(type === 'whatsapp') {
+                let waUrl = `https://wa.me/242050447163?text=${message}`;
+                window.open(waUrl, '_blank');
+            } else if(type === 'mail') {
+                let mailSubject = encodeURIComponent("Commande / Demande - Super U Brazzaville");
+                let mailBody = encodeURIComponent(message.replace(/%0A/g, '\n'));
+                window.location.href = `mailto:blessingtsiobinda@gmail.com?subject=${mailSubject}&body=${mailBody}`;
+            }
+        }
+
+        // Afficher / Cacher le panneau Admin avec mot de passe
+        function toggleAdminPanel() {
+            let panel = document.getElementById('admin-panel');
+            panel.style.display = panel.style.display === 'block' ? 'none' : 'block';
+        }
+
+        // Ajouter un produit (Protégé par MDP)
+        function addNewProduct() {
+            let pass = document.getElementById('adminPass').value;
+            // Mot de passe modifiable ici (ex: superu2026)
+            if(pass !== 'superu2026') {
+                alert('Mot de passe incorrect !');
+                return;
+            }
+
+            let title = document.getElementById('newTitle').value;
+            let rayon = document.getElementById('newRayon').value;
+            let img = document.getElementById('newImg').value;
+
+            if(!title || !img) {
+                alert('Veuillez remplir le nom et le lien de l\'image.');
+                return;
+            }
+
+            products.push({
+                id: products.length + 1,
+                title: title,
+                rayon: rayon,
+                img: img,
+                badge: rayon === 'Restaurant' ? 'Plat/Gâteau' : 'Nouveau'
+            });
+
+            document.getElementById('newTitle').value = '';
+            document.getElementById('newImg').value = '';
+            document.getElementById('adminPass').value = '';
+            toggleAdminPanel();
+            renderProducts();
+            alert('Produit ajouté avec succès au catalogue !');
+        }
+
+        // Initialisation au chargement
+        renderProducts();
+    </script>
 </body>
 </html>
