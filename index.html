@@ -100,9 +100,9 @@
     <!-- Hero & Recherche -->
     <div class="hero">
         <h2>Votre Supermarché Moderne</h2>
-        <p>Recherchez vos produits, laits, yaourts ou plats et commandez en un clic !</p>
+        <p>Recherchez parmi nos dizaines de produits et commandez en un clic !</p>
         <div class="search-box">
-            <input type="text" id="searchInput" placeholder="Ex: Danone, Nestlé, Lait, Poulet, Gâteau..." onkeyup="filterProducts()">
+            <input type="text" id="searchInput" placeholder="Rechercher (ex: Danone, Lait, Riz, Poulet...)" onkeyup="filterProducts()">
             <button><i class="fa-solid fa-search"></i></button>
         </div>
     </div>
@@ -117,13 +117,13 @@
                 <p>Trouvez facilement notre magasin au cœur de Brazzaville sur Google Maps.</p>
             </a>
 
-            <div class="feature-card" onclick="filterByRayon('Restaurant')">
+            <div class="feature-card" onclick="setRayonFilter('Restaurant')">
                 <i class="fa-solid fa-utensils"></i>
                 <h3>2. Service Restaurant & Traiteur</h3>
                 <p>Découvrez nos plats cuisinés, grillades et gâteaux frais à commander.</p>
             </div>
 
-            <div class="feature-card" onclick="filterByRayon('Tous')">
+            <div class="feature-card" onclick="setRayonFilter('Tous')">
                 <i class="fa-solid fa-boxes-stacked"></i>
                 <h3>3. Rayons & Produits</h3>
                 <p>Parcourez l'épicerie, les laits, les yaourts et les produits frais.</p>
@@ -131,18 +131,18 @@
         </div>
 
         <!-- Filtres par Rayons -->
-        <div class="section-title">Catalogue & Résultats de Recherche</div>
+        <div class="section-title">Catalogue des Produits</div>
         <div class="filter-tags">
-            <div class="tag active" onclick="filterByRayon('Tous')">Tous les articles</div>
-            <div class="tag" onclick="filterByRayon('Restaurant')">🍔 Plats & Gâteaux</div>
-            <div class="tag" onclick="filterByRayon('Frais')">🥛 Laits & Yaourts (Frais)</div>
-            <div class="tag" onclick="filterByRayon('Epicerie')">🍚 Épicerie & Boissons</div>
+            <div class="tag active" id="tag-Tous" onclick="setRayonFilter('Tous')">Tous les articles</div>
+            <div class="tag" id="tag-Restaurant" onclick="setRayonFormat('Restaurant')">🍔 Plats & Gâteaux</div>
+            <div class="tag" id="tag-Frais" onclick="setRayonFormat('Frais')">🥛 Laits & Yaourts (Frais)</div>
+            <div class="tag" id="tag-Epicerie" onclick="setRayonFormat('Epicerie')">🍚 Épicerie & Boissons</div>
         </div>
 
         <!-- Grille Dynamique des Produits -->
         <div class="product-grid" id="productGrid"></div>
 
-        <!-- Espace Administrateur Caché avec Importation d'Image Directe -->
+        <!-- Espace Administrateur Caché -->
         <div class="admin-trigger">
             <span onclick="toggleAdminPanel()"><i class="fa-solid fa-lock"></i> Accès Gestionnaire (Admin)</span>
         </div>
@@ -151,7 +151,7 @@
             <h3 style="margin-bottom: 15px; color: var(--accent);">Panneau de Gestion Sécurisé</h3>
             <p style="font-size: 0.85rem; color: #666; margin-bottom: 15px;">Entrez le mot de passe pour ajouter un produit :</p>
             <input type="password" id="adminPass" placeholder="Mot de passe (ex: superu2026)">
-            <input type="text" id="newTitle" placeholder="Nom du produit ou plat (ex: Yaourt Danone 4packs)">
+            <input type="text" id="newTitle" placeholder="Nom du produit ou plat">
             <select id="newRayon">
                 <option value="Restaurant">Restaurant (Plat/Gâteau)</option>
                 <option value="Frais">Rayon Frais (Lait/Yaourt)</option>
@@ -185,33 +185,89 @@
     </footer>
 
     <script>
+        // Base de données riche avec près de 60 produits et marques variées
         let products = [
-            { id: 1, title: "Yaourt Velouté Danone (Pack de 4)", rayon: "Frais", img: "https://images.unsplash.com/photo-1488477181946-6428a0291777?auto=format&fit=crop&w=500&q=80", badge: "Yaourt Danone" },
-            { id: 2, title: "Yaourt Nature / Fruité Nestlé", rayon: "Frais", img: "https://images.unsplash.com/photo-1571212723642-19723dd77d54?auto=format&fit=crop&w=500&q=80", badge: "Yaourt Nestlé" },
-            { id: 3, title: "Lait UHT Entier / Demi-Ecrémé Candia", rayon: "Frais", img: "https://images.unsplash.com/photo-1550583724-b2692b85b150?auto=format&fit=crop&w=500&q=80", badge: "Lait Candia" },
-            { id: 4, title: "Lait Concentré Sucré Gloria / Nestlé", rayon: "Frais", img: "https://images.unsplash.com/photo-1563636619-e9143da7973b?auto=format&fit=crop&w=500&q=80", badge: "Lait Concentré" },
-            { id: 5, title: "Poulet Braisé & Alloco Maison", rayon: "Restaurant", img: "https://images.unsplash.com/photo-1555939594-58d7cb561ad1?auto=format&fit=crop&w=500&q=80", badge: "Plat Restaurant" },
-            { id: 6, title: "Gâteau d'Anniversaire Chocolat / Vanille", rayon: "Restaurant", img: "https://images.unsplash.com/photo-1578985545062-69928b1d9587?auto=format&fit=crop&w=500&q=80", badge: "Pâtisserie" },
-            { id: 7, title: "Sac de Riz Parfumé Aroso 25kg", rayon: "Epicerie", img: "https://images.unsplash.com/photo-1586201375761-83865001e31c?auto=format&fit=crop&w=500&q=80", badge: "Épicerie" },
-            { id: 8, title: "Huile Végétale Raffinée Dinor", rayon: "Epicerie", img: "https://images.unsplash.com/photo-1474979266404-7eaacbcd87c5?auto=format&fit=crop&w=500&q=80", badge: "Épicerie" }
+            // YAOURTS & LAITS (FRAIS)
+            { id: 1, title: "Yaourt Velouté Danone (Pack de 4)", rayon: "Frais", img: "https://images.unsplash.com/photo-1488477181946-6428a0291777?auto=format&fit=crop&w=500&q=80", badge: "Danone" },
+            { id: 2, title: "Yaourt à boire Danone Actimel", rayon: "Frais", img: "https://images.unsplash.com/photo-1571212723642-19723dd77d54?auto=format&fit=crop&w=500&q=80", badge: "Danone" },
+            { id: 3, title: "Yaourt Nature Nestlé", rayon: "Frais", img: "https://images.unsplash.com/photo-1488477181946-6428a0291777?auto=format&fit=crop&w=500&q=80", badge: "Nestlé" },
+            { id: 4, title: "Yaourt aux Fruits Nestlé Fruix", rayon: "Frais", img: "https://images.unsplash.com/photo-1571212723642-19723dd77d54?auto=format&fit=crop&w=500&q=80", badge: "Nestlé" },
+            { id: 5, title: "Yaourt Grec Sodiaal", rayon: "Frais", img: "https://images.unsplash.com/photo-1488477181946-6428a0291777?auto=format&fit=crop&w=500&q=80", badge: "Frais" },
+            { id: 6, title: "Lait UHT Entier Candia", rayon: "Frais", img: "https://images.unsplash.com/photo-1550583724-b2692b85b150?auto=format&fit=crop&w=500&q=80", badge: "Candia" },
+            { id: 7, title: "Lait UHT Demi-Écrémé Candia", rayon: "Frais", img: "https://images.unsplash.com/photo-1550583724-b2692b85b150?auto=format&fit=crop&w=500&q=80", badge: "Candia" },
+            { id: 8, title: "Lait Concentré Sucré Gloria", rayon: "Frais", img: "https://images.unsplash.com/photo-1563636619-e9143da7973b?auto=format&fit=crop&w=500&q=80", badge: "Gloria" },
+            { id: 9, title: "Lait Concentré Non Sucré Nestlé", rayon: "Frais", img: "https://images.unsplash.com/photo-1563636619-e9143da7973b?auto=format&fit=crop&w=500&q=80", badge: "Nestlé" },
+            { id: 10, title: "Lait en Poudre Nido 400g", rayon: "Frais", img: "https://images.unsplash.com/photo-1550583724-b2692b85b150?auto=format&fit=crop&w=500&q=80", badge: "Nido" },
+            { id: 11, title: "Lait en Poudre Nido 900g", rayon: "Frais", img: "https://images.unsplash.com/photo-1550583724-b2692b85b150?auto=format&fit=crop&w=500&q=80", badge: "Nido" },
+            { id: 12, title: "Beurre Doux Président 250g", rayon: "Frais", img: "https://images.unsplash.com/photo-1589985270826-4b7bb135bc9d?auto=format&fit=crop&w=500&q=80", badge: "Président" },
+            { id: 13, title: "Fromage Fonciers Kiri (Boîte de 8)", rayon: "Frais", img: "https://images.unsplash.com/photo-1486297678162-eb2a19b0a32d?auto=format&fit=crop&w=500&q=80", badge: "Kiri" },
+            { id: 14, title: "Fromage La Vache qui Rit", rayon: "Frais", img: "https://images.unsplash.com/photo-1486297678162-eb2a19b0a32d?auto=format&fit=crop&w=500&q=80", badge: "Fromage" },
+            { id: 15, title: "Crème Fraîche Président", rayon: "Frais", img: "https://images.unsplash.com/photo-1550583724-b2692b85b150?auto=format&fit=crop&w=500&q=80", badge: "Président" },
+            { id: 16, title: "Yaourt Malherbe Traditionnel", rayon: "Frais", img: "https://images.unsplash.com/photo-1488477181946-6428a0291777?auto=format&fit=crop&w=500&q=80", badge: "Frais" },
+            { id: 17, title: "Lait Fermé Calebasse", rayon: "Frais", img: "https://images.unsplash.com/photo-1550583724-b2692b85b150?auto=format&fit=crop&w=500&q=80", badge: "Local" },
+            { id: 18, title: "Yaourt Cacao Choco Dan", rayon: "Frais", img: "https://images.unsplash.com/photo-1571212723642-19723dd77d54?auto=format&fit=crop&w=500&q=80", badge: "Danone" },
+            { id: 19, title: "Lait UHT Demi-Écrémé Matil", rayon: "Frais", img: "https://images.unsplash.com/photo-1550583724-b2692b85b150?auto=format&fit=crop&w=500&q=80", badge: "Frais" },
+            { id: 20, title: "Fromage Edam Tranches", rayon: "Frais", img: "https://images.unsplash.com/photo-1486297678162-eb2a19b0a32d?auto=format&fit=crop&w=500&q=80", badge: "Fromage" },
+
+            // RESTAURANT / TRAITEUR (PLATS & GÂTEAUX)
+            { id: 21, title: "Poulet Braisé & Alloco Maison", rayon: "Restaurant", img: "https://images.unsplash.com/photo-1555939594-58d7cb561ad1?auto=format&fit=crop&w=500&q=80", badge: "Plat" },
+            { id: 22, title: "Gâteau d'Anniversaire Chocolat 1Kg", rayon: "Restaurant", img: "https://images.unsplash.com/photo-1578985545062-69928b1d9587?auto=format&fit=crop&w=500&q=80", badge: "Pâtisserie" },
+            { id: 23, title: "Gâteau d'Anniversaire Vanille & Fraise", rayon: "Restaurant", img: "https://images.unsplash.com/photo-1535141192574-5d4897c13136?auto=format&fit=crop&w=500&q=80", badge: "Pâtisserie" },
+            { id: 24, title: "Brochettes de Viande (Portion de 5)", rayon: "Restaurant", img: "https://images.unsplash.com/photo-1555939594-58d7cb561ad1?auto=format&fit=crop&w=500&q=80", badge: "Grillade" },
+            { id: 25, title: "Poisson Braisé & Manioc (Foufou)", rayon: "Restaurant", img: "https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?auto=format&fit=crop&w=500&q=80", badge: "Spécialité" },
+            { id: 26, title: "Burger Maison & Frites", rayon: "Restaurant", img: "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=500&q=80", badge: "Fast-Food" },
+            { id: 27, title: "Pizza Royale 4 Fromages", rayon: "Restaurant", img: "https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&w=500&q=80", badge: "Pizza" },
+            { id: 28, title: "Salade Composée Fraîcheur", rayon: "Restaurant", img: "https://images.unsplash.com/photo-1540420773420-3366772f4999?auto=format&fit=crop&w=500&q=80", badge: "Salade" },
+            { id: 29, title: "Tarte aux Pommes Artisanale", rayon: "Restaurant", img: "https://images.unsplash.com/photo-1519869325930-281384150729?auto=format&fit=crop&w=500&q=80", badge: "Dessert" },
+            { id: 30, title: "Beignets Sucrés (Sachet de 10)", rayon: "Restaurant", img: "https://images.unsplash.com/photo-1621252171245-0f305f8812e5?auto=format&fit=crop&w=500&q=80", badge: "Snack" },
+            { id: 31, title: "Sandwich ton & Mayonnaise", rayon: "Restaurant", img: "https://images.unsplash.com/photo-1528735602780-2552fd46c7af?auto=format&fit=crop&w=500&q=80", badge: "Snack" },
+            { id: 32, title: "Poulet RTI entier avec épices", rayon: "Restaurant", img: "https://images.unsplash.com/photo-1598515214211-89d3c73ae83b?auto=format&fit=crop&w=500&q=80", badge: "Traiteur" },
+            { id: 33, title: "Riz Jollof & Poulet Frit", rayon: "Restaurant", img: "https://images.unsplash.com/photo-1563379091339-03b21ab4a4f8?auto=format&fit=crop&w=500&q=80", badge: "Plat" },
+            { id: 34, title: "Omelette aux Légumes", rayon: "Restaurant", img: "https://images.unsplash.com/photo-1525351484163-7529414344d8?auto=format&fit=crop&w=500&q=80", badge: "Petit-déj" },
+            { id: 35, title: "Jus de Gingembre Naturel 50cl", rayon: "Restaurant", img: "https://images.unsplash.com/photo-1613478223719-2ab802602423?auto=format&fit=crop&w=500&q=80", badge: "Boisson" },
+            { id: 36, title: "Jus de Bisap (Bissap) 50cl", rayon: "Restaurant", img: "https://images.unsplash.com/photo-1546173159-315724a31696?auto=format&fit=crop&w=500&q=80", badge: "Boisson" },
+            { id: 37, title: "Gâteau au Yaourt Citron", rayon: "Restaurant", img: "https://images.unsplash.com/photo-1535141192574-5d4897c13136?auto=format&fit=crop&w=500&q=80", badge: "Pâtisserie" },
+            { id: 38, title: "Croissant au Beurre du Jour", rayon: "Restaurant", img: "https://images.unsplash.com/photo-1555507036-ab1f4038808a?auto=format&fit=crop&w=500&q=80", badge: "Viennoiserie" },
+            { id: 39, title: "Pain au Chocolat Frais", rayon: "Restaurant", img: "https://images.unsplash.com/photo-1608198093002-ad4e005484ec?auto=format&fit=crop&w=500&q=80", badge: "Viennoiserie" },
+            { id: 40, title: "Brochettes de Poulet (Portion de 5)", rayon: "Restaurant", img: "https://images.unsplash.com/photo-1555939594-58d7cb561ad1?auto=format&fit=crop&w=500&q=80", badge: "Grillade" },
+
+            // ÉPICERIE & BOISSONS
+            { id: 41, title: "Sac de Riz Parfumé Aroso 25kg", rayon: "Epicerie", img: "https://images.unsplash.com/photo-1586201375761-83865001e31c?auto=format&fit=crop&w=500&q=80", badge: "Aroso" },
+            { id: 42, title: "Huile Végétale Raffinée Dinor 5L", rayon: "Epicerie", img: "https://images.unsplash.com/photo-1474979266404-7eaacbcd87c5?auto=format&fit=crop&w=500&q=80", badge: "Dinor" },
+            { id: 43, title: "Boîte de Tomates Concentrées 3 Epis", rayon: "Epicerie", img: "https://images.unsplash.com/photo-1592924357228-91a4daadcfea?auto=format&fit=crop&w=500&q=80", badge: "Épicerie" },
+            { id: 44, title: "Pâtes Spaghettis Barilla 500g", rayon: "Epicerie", img: "https://images.unsplash.com/photo-1621996346565-e3d5d6281297?auto=format&fit=crop&w=500&q=80", badge: "Barilla" },
+            { id: 45, title: "Pack d'Eau Minérale Source Mbila 1.5L (6b)", rayon: "Epicerie", img: "https://images.unsplash.com/photo-1548839140-29a749e1cf4d?auto=format&fit=crop&w=500&q=80", badge: "Boisson" },
+            { id: 46, title: "Sodas Coca-Cola 1.5L (Pack de 6)", rayon: "Epicerie", img: "https://images.unsplash.com/photo-1554866585-cd94860890b7?auto=format&fit=crop&w=500&q=80", badge: "Coca-Cola" },
+            { id: 47, title: "Sodas Fanta Orange 1.5L", rayon: "Epicerie", img: "https://images.unsplash.com/photo-1622483767028-3f66f32aef97?auto=format&fit=crop&w=500&q=80", badge: "Fanta" },
+            { id: 48, title: "Boisson Énergisante XXL", rayon: "Epicerie", img: "https://images.unsplash.com/photo-1622543925917-763c34d1a86e?auto=format&fit=crop&w=500&q=80", badge: "Énergisante" },
+            { id: 49, title: "Café Soluble Nescafé 200g", rayon: "Epicerie", img: "https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?auto=format&fit=crop&w=500&q=80", badge: "Nescafé" },
+            { id: 50, title: "Thé Lipton Yellow Label (Boîte)", rayon: "Epicerie", img: "https://images.unsplash.com/photo-1576092768241-dec231879fc3?auto=format&fit=crop&w=500&q=80", badge: "Thé" },
+            { id: 51, title: "Sucre en Poudre Blanc 1kg", rayon: "Epicerie", img: "https://images.unsplash.com/photo-1581404917167-d40026e792c3?auto=format&fit=crop&w=500&q=80", badge: "Épicerie" },
+            { id: 52, title: "Farine de Blé 1kg", rayon: "Epicerie", img: "https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=500&q=80", badge: "Épicerie" },
+            { id: 53, title: "Sel de Cuisine Fin 1kg", rayon: "Epicerie", img: "https://images.unsplash.com/photo-1518117715891-82cb5c1f90b7?auto=format&fit=crop&w=500&q=80", badge: "Épicerie" },
+            { id: 54, title: "Mayonnaise JMC 500g", rayon: "Epicerie", img: "https://images.unsplash.com/photo-1563379091339-03b21ab4a4f8?auto=format&fit=crop&w=500&q=80", badge: "Condiment" },
+            { id: 55, title: "Sardines à l'Huile Pêcheur", rayon: "Epicerie", img: "https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=500&q=80", badge: "Conserve" },
+            { id: 56, title: "Bouillon Cube Maggi (Pot de 60)", rayon: "Epicerie", img: "https://images.unsplash.com/photo-1546549032-9571cd6b27df?auto=format&fit=crop&w=500&q=80", badge: "Maggi" },
+            { id: 57, title: "Chocolat en Poudre Nesquik", rayon: "Epicerie", img: "https://images.unsplash.com/photo-1542990253-0d0f5be5f0ed?auto=format&fit=crop&w=500&q=80", badge: "Nesquik" },
+            { id: 58, title: "Biscuits Lu Petit Beurre", rayon: "Epicerie", img: "https://images.unsplash.com/photo-1558961363-fa8fdf82db35?auto=format&fit=crop&w=500&q=80", badge: "Biscuit" },
+            { id: 59, title: "Chips de Bananes Plantain", rayon: "Epicerie", img: "https://images.unsplash.com/photo-1566478989037-eec170784d0b?auto=format&fit=crop&w=500&q=80", badge: "Apéritif" },
+            { id: 60, title: "Savon de Ménage Le Chat / Maquis", rayon: "Epicerie", img: "https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?auto=format&fit=crop&w=500&q=80", badge: "Entretien" }
         ];
 
-        let currentFilter = 'Tous';
+        let currentRayonFilter = 'Tous';
 
-        function renderProducts(itemsToRender = null) {
+        function renderProducts(listToDisplay = null) {
             const grid = document.getElementById('productGrid');
             grid.innerHTML = '';
 
-            let filtered = itemsToRender || products.filter(p => {
-                return (currentFilter === 'Tous' || p.rayon === currentFilter);
-            });
+            let data = listToDisplay || products.filter(p => currentRayonFilter === 'Tous' || p.rayon === currentRayonFilter);
 
-            if(filtered.length === 0) {
+            if(data.length === 0) {
                 grid.innerHTML = '<p style="grid-column: 1/-1; text-align: center; color: #777; padding: 30px;">Aucun produit trouvé.</p>';
                 return;
             }
 
-            filtered.forEach(p => {
+            data.forEach(p => {
                 let card = document.createElement('div');
                 card.className = 'product-card';
                 card.innerHTML = `
@@ -232,22 +288,26 @@
             });
         }
 
-        function filterByRayon(rayon) {
-            currentFilter = rayon;
+        function setRayonFilter(rayon) {
+            currentRayonFilter = rayon;
             document.querySelectorAll('.tag').forEach(t => t.classList.remove('active'));
-            event && event.target && event.target.classList.add('active');
-            document.getElementById('searchInput').value = ''; // Réinitialise la recherche texte
+            let activeTag = document.getElementById('tag-' + rayon);
+            if(activeTag) activeTag.classList.add('active');
+            
+            document.getElementById('searchInput').value = ''; // Vide la recherche textuelle
             renderProducts();
         }
 
-        // Recherche dynamique qui met à jour l'affichage instantanément
+        // Fonctionnalité de recherche combinée et fluide
         function filterProducts() {
-            let query = document.getElementById('searchInput').value.toLowerCase();
-            if(query.trim() === '') {
+            let query = document.getElementById('searchInput').value.toLowerCase().trim();
+            
+            if(query === '') {
                 renderProducts();
                 return;
             }
 
+            // Recherche dans tous les produits sans bloquer par rayon
             let filtered = products.filter(p => p.title.toLowerCase().includes(query));
             renderProducts(filtered);
         }
@@ -291,7 +351,6 @@
             panel.style.display = panel.style.display === 'block' ? 'none' : 'block';
         }
 
-        // Ajout de produit avec prise en charge directe de l'image locale
         function addNewProduct() {
             let pass = document.getElementById('adminPass').value;
             if(pass !== 'superu2026') {
@@ -311,19 +370,18 @@
             if(fileInput.files && fileInput.files[0]) {
                 let reader = new FileReader();
                 reader.onload = function(e) {
-                    products.push({
+                    products.unshift({ // Ajoute tout en haut de la liste
                         id: products.length + 1,
                         title: title,
                         rayon: rayon,
-                        img: e.target.result, // L'image est convertie et affichée instantanément !
+                        img: e.target.result,
                         badge: 'Nouveau'
                     });
                     resetAndRefresh();
                 }
                 reader.readAsDataURL(fileInput.files[0]);
             } else {
-                // Image par défaut si aucune image n'est sélectionnée
-                products.push({
+                products.unshift({
                     id: products.length + 1,
                     title: title,
                     rayon: rayon,
@@ -340,9 +398,10 @@
             document.getElementById('adminPass').value = '';
             toggleAdminPanel();
             renderProducts();
-            alert('Produit et image ajoutés avec succès au catalogue !');
+            alert('Produit ajouté avec succès au catalogue !');
         }
 
+        // Lancement initial
         renderProducts();
     </script>
 </body>
