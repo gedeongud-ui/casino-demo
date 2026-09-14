@@ -131,7 +131,7 @@
         </div>
 
         <!-- Filtres par Rayons -->
-        <div class="section-title">Catalogue & Produits Disponibles</div>
+        <div class="section-title">Catalogue & Résultats de Recherche</div>
         <div class="filter-tags">
             <div class="tag active" onclick="filterByRayon('Tous')">Tous les articles</div>
             <div class="tag" onclick="filterByRayon('Restaurant')">🍔 Plats & Gâteaux</div>
@@ -142,7 +142,7 @@
         <!-- Grille Dynamique des Produits -->
         <div class="product-grid" id="productGrid"></div>
 
-        <!-- Espace Administrateur Caché -->
+        <!-- Espace Administrateur Caché avec Importation d'Image Directe -->
         <div class="admin-trigger">
             <span onclick="toggleAdminPanel()"><i class="fa-solid fa-lock"></i> Accès Gestionnaire (Admin)</span>
         </div>
@@ -157,8 +157,9 @@
                 <option value="Frais">Rayon Frais (Lait/Yaourt)</option>
                 <option value="Epicerie">Épicerie</option>
             </select>
-            <input type="text" id="newImg" placeholder="Lien de l'image (URL photo)">
-            <button onclick="addNewProduct()" style="background: var(--primary); color: white; border: none; padding: 10px 20px; border-radius: 5px; font-weight: bold; cursor: pointer; width: 100%;">Ajouter au catalogue</button>
+            <label style="font-size: 0.85rem; font-weight: bold; color: #444; display: block; margin-bottom: 5px;">Choisir une photo depuis votre appareil :</label>
+            <input type="file" id="imageFile" accept="image/*" style="background: #fafafa; padding: 8px;">
+            <button onclick="addNewProduct()" style="background: var(--primary); color: white; border: none; padding: 10px 20px; border-radius: 5px; font-weight: bold; cursor: pointer; width: 100%; margin-top: 10px;">Ajouter au catalogue</button>
         </div>
 
     </div>
@@ -184,11 +185,10 @@
     </footer>
 
     <script>
-        // Base de données avec marques de laits, yaourts et plats
         let products = [
             { id: 1, title: "Yaourt Velouté Danone (Pack de 4)", rayon: "Frais", img: "https://images.unsplash.com/photo-1488477181946-6428a0291777?auto=format&fit=crop&w=500&q=80", badge: "Yaourt Danone" },
             { id: 2, title: "Yaourt Nature / Fruité Nestlé", rayon: "Frais", img: "https://images.unsplash.com/photo-1571212723642-19723dd77d54?auto=format&fit=crop&w=500&q=80", badge: "Yaourt Nestlé" },
-            { id: 3, title: "Lait UHT Entré / Demi-Ecrémé Candia", rayon: "Frais", img: "https://images.unsplash.com/photo-1550583724-b2692b85b150?auto=format&fit=crop&w=500&q=80", badge: "Lait Candia" },
+            { id: 3, title: "Lait UHT Entier / Demi-Ecrémé Candia", rayon: "Frais", img: "https://images.unsplash.com/photo-1550583724-b2692b85b150?auto=format&fit=crop&w=500&q=80", badge: "Lait Candia" },
             { id: 4, title: "Lait Concentré Sucré Gloria / Nestlé", rayon: "Frais", img: "https://images.unsplash.com/photo-1563636619-e9143da7973b?auto=format&fit=crop&w=500&q=80", badge: "Lait Concentré" },
             { id: 5, title: "Poulet Braisé & Alloco Maison", rayon: "Restaurant", img: "https://images.unsplash.com/photo-1555939594-58d7cb561ad1?auto=format&fit=crop&w=500&q=80", badge: "Plat Restaurant" },
             { id: 6, title: "Gâteau d'Anniversaire Chocolat / Vanille", rayon: "Restaurant", img: "https://images.unsplash.com/photo-1578985545062-69928b1d9587?auto=format&fit=crop&w=500&q=80", badge: "Pâtisserie" },
@@ -198,11 +198,11 @@
 
         let currentFilter = 'Tous';
 
-        function renderProducts() {
+        function renderProducts(itemsToRender = null) {
             const grid = document.getElementById('productGrid');
             grid.innerHTML = '';
 
-            let filtered = products.filter(p => {
+            let filtered = itemsToRender || products.filter(p => {
                 return (currentFilter === 'Tous' || p.rayon === currentFilter);
             });
 
@@ -236,40 +236,20 @@
             currentFilter = rayon;
             document.querySelectorAll('.tag').forEach(t => t.classList.remove('active'));
             event && event.target && event.target.classList.add('active');
+            document.getElementById('searchInput').value = ''; // Réinitialise la recherche texte
             renderProducts();
         }
 
+        // Recherche dynamique qui met à jour l'affichage instantanément
         function filterProducts() {
             let query = document.getElementById('searchInput').value.toLowerCase();
-            const grid = document.getElementById('productGrid');
-            grid.innerHTML = '';
-
-            let filtered = products.filter(p => p.title.toLowerCase().includes(query));
-
-            if(filtered.length === 0) {
-                grid.innerHTML = '<p style="grid-column: 1/-1; text-align: center; color: #777; padding: 30px;">Aucun résultat pour votre recherche.</p>';
+            if(query.trim() === '') {
+                renderProducts();
                 return;
             }
 
-            filtered.forEach(p => {
-                let card = document.createElement('div');
-                card.className = 'product-card';
-                card.innerHTML = `
-                    <div>
-                        <img src="${p.img}" alt="${p.title}" class="product-img">
-                        <div class="product-info">
-                            <span class="product-badge">${p.badge}</span>
-                            <div class="product-title">${p.title}</div>
-                        </div>
-                    </div>
-                    <div class="product-action">
-                        <label class="checkbox-container">
-                            <input type="checkbox" value="${p.title}" onchange="updateCart()"> Sélectionner
-                        </label>
-                    </div>
-                `;
-                grid.appendChild(card);
-            });
+            let filtered = products.filter(p => p.title.toLowerCase().includes(query));
+            renderProducts(filtered);
         }
 
         function updateCart() {
@@ -311,6 +291,7 @@
             panel.style.display = panel.style.display === 'block' ? 'none' : 'block';
         }
 
+        // Ajout de produit avec prise en charge directe de l'image locale
         function addNewProduct() {
             let pass = document.getElementById('adminPass').value;
             if(pass !== 'superu2026') {
@@ -320,27 +301,46 @@
 
             let title = document.getElementById('newTitle').value;
             let rayon = document.getElementById('newRayon').value;
-            let img = document.getElementById('newImg').value;
+            let fileInput = document.getElementById('imageFile');
 
-            if(!title || !img) {
-                alert('Veuillez remplir le nom et le lien de l\'image.');
+            if(!title) {
+                alert('Veuillez entrer le nom du produit.');
                 return;
             }
 
-            products.push({
-                id: products.length + 1,
-                title: title,
-                rayon: rayon,
-                img: img,
-                badge: 'Nouveau'
-            });
+            if(fileInput.files && fileInput.files[0]) {
+                let reader = new FileReader();
+                reader.onload = function(e) {
+                    products.push({
+                        id: products.length + 1,
+                        title: title,
+                        rayon: rayon,
+                        img: e.target.result, // L'image est convertie et affichée instantanément !
+                        badge: 'Nouveau'
+                    });
+                    resetAndRefresh();
+                }
+                reader.readAsDataURL(fileInput.files[0]);
+            } else {
+                // Image par défaut si aucune image n'est sélectionnée
+                products.push({
+                    id: products.length + 1,
+                    title: title,
+                    rayon: rayon,
+                    img: "https://images.unsplash.com/photo-1534723452862-4c874018d66d?auto=format&fit=crop&w=500&q=80",
+                    badge: 'Nouveau'
+                });
+                resetAndRefresh();
+            }
+        }
 
+        function resetAndRefresh() {
             document.getElementById('newTitle').value = '';
-            document.getElementById('newImg').value = '';
+            document.getElementById('imageFile').value = '';
             document.getElementById('adminPass').value = '';
             toggleAdminPanel();
             renderProducts();
-            alert('Produit ajouté avec succès !');
+            alert('Produit et image ajoutés avec succès au catalogue !');
         }
 
         renderProducts();
