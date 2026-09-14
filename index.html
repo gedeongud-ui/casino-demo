@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Super U Brazzaville - Catalogue & Commandes en Ligne</title>
+    <title>Super U & Carrefour Brazzaville - Catalogue & Commandes</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
@@ -18,7 +18,7 @@
 
         /* Header */
         header { background-color: var(--primary); color: white; padding: 15px 20px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 2px 5px rgba(0,0,0,0.1); position: sticky; top: 0; z-index: 100; }
-        header h1 { font-size: 1.4rem; display: flex; align-items: center; gap: 10px; }
+        header h1 { font-size: 1.3rem; display: flex; align-items: center; gap: 10px; }
         .header-contacts { display: flex; gap: 10px; }
         .btn-mini { background: var(--whatsapp); color: white; padding: 6px 12px; border-radius: 20px; text-decoration: none; font-weight: bold; font-size: 0.85rem; display: flex; align-items: center; gap: 5px; }
         .btn-mail { background: #555; }
@@ -81,7 +81,7 @@
 
     <!-- Header -->
     <header>
-        <h1><i class="fa-solid fa-cart-shopping"></i> Super U Brazzaville</h1>
+        <h1><i class="fa-solid fa-cart-shopping"></i> Super U & Carrefour</h1>
         <div class="header-contacts">
             <a href="https://wa.me/242050447163?text=Bonjour,%20je%20souhaite%20des%20renseignements." target="_blank" class="btn-mini">
                 <i class="fa-brands fa-whatsapp"></i> WhatsApp
@@ -94,15 +94,15 @@
 
     <!-- Bandeau Promo -->
     <div class="promo-banner">
-        🔥 ARRIVAGES & PROMOTIONS DE LA SEMAINE : Venez découvrir nos nouveautés en magasin !
+        🔥 CATALOGUE GÉNÉRAL HYPERMARCHÉ : Cumulez vos articles de tous les rayons et commandez en 1 clic !
     </div>
 
     <!-- Hero & Recherche -->
     <div class="hero">
-        <h2>Votre Supermarché Moderne</h2>
-        <p>Recherchez parmi nos rayons (lessives, alimentation, hygiène...) et commandez en un clic !</p>
+        <h2>Votre Supermarché en Ligne</h2>
+        <p>Sélectionnez des produits dans plusieurs rayons différents : tout s'accumule dans votre panier !</p>
         <div class="search-box">
-            <input type="text" id="searchInput" placeholder="Rechercher (ex: Lessive, Omo, Javel, Riz, Danone...)" onkeyup="filterProducts()">
+            <input type="text" id="searchInput" placeholder="Rechercher (ex: Lessive, Carrefour, Javel, Riz, Yaourt...)" onkeyup="filterProducts()">
             <button><i class="fa-solid fa-search"></i></button>
         </div>
     </div>
@@ -111,34 +111,34 @@
 
         <!-- 3 Blocs Principaux -->
         <div class="grid-cards">
-            <a href="https://www.google.com/maps/search/Super+U+Brazzaville/" target="_blank" class="feature-card">
+            <a href="https://www.google.com/maps/search/Supermarché+Brazzaville/" target="_blank" class="feature-card">
                 <i class="fa-solid fa-location-dot"></i>
-                <h3>1. Localisation Super U</h3>
-                <p>Trouvez facilement notre magasin au cœur de Brazzaville sur Google Maps.</p>
+                <h3>1. Localisation Magasin</h3>
+                <p>Trouvez nos emplacements au cœur de Brazzaville sur Google Maps.</p>
             </a>
 
             <div class="feature-card" onclick="setRayonFilter('Restaurant')">
                 <i class="fa-solid fa-utensils"></i>
-                <h3>2. Service Restaurant & Traiteur</h3>
+                <h3>2. Service Traiteur & Resto</h3>
                 <p>Découvrez nos plats cuisinés, grillades et gâteaux frais à commander.</p>
             </div>
 
             <div class="feature-card" onclick="setRayonFilter('Tous')">
                 <i class="fa-solid fa-boxes-stacked"></i>
-                <h3>3. Rayons & Produits</h3>
-                <p>Parcourez l'entretien, l'épicerie, les laits et les produits frais.</p>
+                <h3>3. Tous les Rayons</h3>
+                <p>Parcourez l'entretien Carrefour, l'épicerie, le frais et l'hygiène.</p>
             </div>
         </div>
 
         <!-- Filtres par Rayons -->
-        <div class="section-title">Catalogue des Produits</div>
+        <div class="section-title">Catalogue Global des Produits</div>
         <div class="filter-tags">
             <div class="tag active" id="tag-Tous" onclick="setRayonFilter('Tous')">Tous les articles</div>
             <div class="tag" id="tag-Entretien" onclick="setRayonFilter('Entretien')">🧼 Entretien & Lessives</div>
             <div class="tag" id="tag-Frais" onclick="setRayonFilter('Frais')">🥛 Laits & Yaourts</div>
-            <div class="tag" id="tag-Epicerie" onclick="setRayonFilter('Epicerie')">🍚 Épicerie & Boissons</div>
+            <div class="tag" id="tag-Epicerie" onclick="setRayonFilter('Epicerie')">🍚 Épicerie & Carrefour</div>
             <div class="tag" id="tag-Hygiene" onclick="setRayonFilter('Hygiene')">🧴 Hygiène & Beauté</div>
-            <div class="tag" id="tag-Restaurant" onclick="setRayonFilter('Restaurant')">🍔 Plats & Gâteaux</div>
+            <div class="tag" id="tag-Restaurant" onclick="setRayonFilter('Restaurant')">🍔 Traiteur & Gâteaux</div>
         </div>
 
         <!-- Grille Dynamique des Produits -->
@@ -157,9 +157,9 @@
             <select id="newRayon">
                 <option value="Entretien">Entretien & Lessives</option>
                 <option value="Frais">Rayon Frais (Lait/Yaourt)</option>
-                <option value="Epicerie">Épicerie & Boissons</option>
+                <option value="Epicerie">Épicerie & Carrefour</option>
                 <option value="Hygiene">Hygiène & Beauté</option>
-                <option value="Restaurant">Restaurant (Plat/Gâteau)</option>
+                <option value="Restaurant">Traiteur (Plat/Gâteau)</option>
             </select>
             <label style="font-size: 0.85rem; font-weight: bold; color: #444; display: block; margin-bottom: 5px;">Choisir une photo depuis votre appareil :</label>
             <input type="file" id="imageFile" accept="image/*" style="background: #fafafa; padding: 8px;">
@@ -171,11 +171,11 @@
     <!-- Panier Flottant -->
     <div id="floating-cart">
         <div>
-            <strong>Sélection : <span id="cartCount">0</span> article(s)</strong>
+            <strong>Sélection globale : <span id="cartCount">0</span> article(s)</strong>
         </div>
         <div class="cart-btns">
             <button class="btn-order-wa" onclick="sendOrder('whatsapp')">
-                <i class="fa-brands fa-whatsapp"></i> Commander (WhatsApp: 050447163)
+                <i class="fa-brands fa-whatsapp"></i> Commander (WhatsApp)
             </button>
             <button class="btn-order-mail" onclick="sendOrder('mail')">
                 <i class="fa-solid fa-envelope"></i> Commander (E-mail)
@@ -184,83 +184,83 @@
     </div>
 
     <footer>
-        <p>&copy; 2026 Super U Brazzaville - Solution Web Professionnelle</p>
+        <p>&copy; 2026 Supermarché - Solution Web Professionnelle</p>
         <p style="font-size: 0.8rem; color: #888; margin-top: 5px;">Développé par Blessing Tsiobinda</p>
     </footer>
 
     <script>
-        // Base de données complète d'un supermarché (Entretien, Lessives, Frais, Épicerie, Hygiène, Restaurant)
+        // Base de données complète combinant Super U et Carrefour (Entretien, Lessives, Frais, Épicerie, Hygiène, Restaurant)
         let products = [
-            // 1. ENTRETIEN & LESSIVES
-            { id: 1, title: "Lessive en Poudre Omo 1kg", rayon: "Entretien", img: "https://images.unsplash.com/photo-1585421514284-efb74c2b69ba?auto=format&fit=crop&w=500&q=80", badge: "Omo" },
+            // 1. ENTRETIEN & LESSIVES (Marques Super U & Carrefour)
+            { id: 1, title: "Lessive Liquide Carrefour Expert 2L", rayon: "Entretien", img: "https://images.unsplash.com/photo-1610557892470-55d9e80c0bce?auto=format&fit=crop&w=500&q=80", badge: "Carrefour" },
             { id: 2, title: "Lessive en Poudre Omo 3kg", rayon: "Entretien", img: "https://images.unsplash.com/photo-1585421514284-efb74c2b69ba?auto=format&fit=crop&w=500&q=80", badge: "Omo" },
             { id: 3, title: "Lessive Liquide Ariel 1.5L", rayon: "Entretien", img: "https://images.unsplash.com/photo-1610557892470-55d9e80c0bce?auto=format&fit=crop&w=500&q=80", badge: "Ariel" },
             { id: 4, title: "Lessive en Poudre Bonux 2kg", rayon: "Entretien", img: "https://images.unsplash.com/photo-1585421514284-efb74c2b69ba?auto=format&fit=crop&w=500&q=80", badge: "Bonux" },
-            { id: 5, title: "Assouplissant Textile Soupline 1L", rayon: "Entretien", img: "https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?auto=format&fit=crop&w=500&q=80", badge: "Soupline" },
-            { id: 6, title: "Javel Croix Verte 1L", rayon: "Entretien", img: "https://images.unsplash.com/photo-1585421514284-efb74c2b69ba?auto=format&fit=crop&w=500&q=80", badge: "Javel" },
-            { id: 7, title: "Liquide Vaisselle Axion 500ml", rayon: "Entretien", img: "https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?auto=format&fit=crop&w=500&q=80", badge: "Axion" },
-            { id: 8, title: "Liquide Vaisselle Paic Citron", rayon: "Entretien", img: "https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?auto=format&fit=crop&w=500&q=80", badge: "Paic" },
-            { id: 9, title: "Nettoyant Sol Ajax 1L", rayon: "Entretien", img: "https://images.unsplash.com/photo-1585421514284-efb74c2b69ba?auto=format&fit=crop&w=500&q=80", badge: "Ajax" },
-            { id: 10, title: "Savon de Ménage Le Chat (Morceau)", rayon: "Entretien", img: "https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?auto=format&fit=crop&w=500&q=80", badge: "Ménage" },
-            { id: 11, title: "Éponges à Vaisselle (Lot de 3)", rayon: "Entretien", img: "https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?auto=format&fit=crop&w=500&q=80", badge: "Accessoire" },
-            { id: 12, title: "Papier Toilette Lotus (Paquet de 10)", rayon: "Entretien", img: "https://images.unsplash.com/photo-1584551246679-0daf3d275d0f?auto=format&fit=crop&w=500&q=80", badge: "Papier" },
-            { id: 13, title: "Essuie-Tout Cuisine (Lot de 2)", rayon: "Entretien", img: "https://images.unsplash.com/photo-1584551246679-0daf3d275d0f?auto=format&fit=crop&w=500&q=80", badge: "Papier" },
-            { id: 14, title: "Insecticide Raid Aérosol 300ml", rayon: "Entretien", img: "https://images.unsplash.com/photo-1585421514284-efb74c2b69ba?auto=format&fit=crop&w=500&q=80", badge: "Raid" },
-            { id: 15, title: "Désodorisant d'Intérieur Febreze", rayon: "Entretien", img: "https://images.unsplash.com/photo-1585421514284-efb74c2b69ba?auto=format&fit=crop&w=500&q=80", badge: "Febreze" },
+            { id: 5, title: "Assouplissant Soupline Concentré 1L", rayon: "Entretien", img: "https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?auto=format&fit=crop&w=500&q=80", badge: "Soupline" },
+            { id: 6, title: "Assouplissant Carrefour Douceur 1.5L", rayon: "Entretien", img: "https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?auto=format&fit=crop&w=500&q=80", badge: "Carrefour" },
+            { id: 7, title: "Eau de Javel Carrefour 2L", rayon: "Entretien", img: "https://images.unsplash.com/photo-1585421514284-efb74c2b69ba?auto=format&fit=crop&w=500&q=80", badge: "Carrefour" },
+            { id: 8, title: "Liquide Vaisselle Axion 500ml", rayon: "Entretien", img: "https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?auto=format&fit=crop&w=500&q=80", badge: "Axion" },
+            { id: 9, title: "Liquide Vaisselle Carrefour Citron 750ml", rayon: "Entretien", img: "https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?auto=format&fit=crop&w=500&q=80", badge: "Carrefour" },
+            { id: 10, title: "Nettoyant Sol Ajax 1L", rayon: "Entretien", img: "https://images.unsplash.com/photo-1585421514284-efb74c2b69ba?auto=format&fit=crop&w=500&q=80", badge: "Ajax" },
+            { id: 11, title: "Savon de Ménage Noir Carrefour 1L", rayon: "Entretien", img: "https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?auto=format&fit=crop&w=500&q=80", badge: "Carrefour" },
+            { id: 12, title: "Éponges Gratton Carrefour (Lot de 10)", rayon: "Entretien", img: "https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?auto=format&fit=crop&w=500&q=80", badge: "Carrefour" },
+            { id: 13, title: "Papier Toilette Carrefour Compact (12 rouleaux)", rayon: "Entretien", img: "https://images.unsplash.com/photo-1584551246679-0daf3d275d0f?auto=format&fit=crop&w=500&q=80", badge: "Carrefour" },
+            { id: 14, title: "Essuie-Tout Cuisine Carrefour (Lot de 3)", rayon: "Entretien", img: "https://images.unsplash.com/photo-1584551246679-0daf3d275d0f?auto=format&fit=crop&w=500&q=80", badge: "Carrefour" },
+            { id: 15, title: "Insecticide Raid Aérosol 300ml", rayon: "Entretien", img: "https://images.unsplash.com/photo-1585421514284-efb74c2b69ba?auto=format&fit=crop&w=500&q=80", badge: "Raid" },
+            { id: 16, title: "Désodorisant Febreze Fraîcheur", rayon: "Entretien", img: "https://images.unsplash.com/photo-1585421514284-efb74c2b69ba?auto=format&fit=crop&w=500&q=80", badge: "Febreze" },
 
             // 2. RAYON FRAIS (LAITS & YAOURTS)
-            { id: 16, title: "Yaourt Velouté Danone (Pack de 4)", rayon: "Frais", img: "https://images.unsplash.com/photo-1488477181946-6428a0291777?auto=format&fit=crop&w=500&q=80", badge: "Danone" },
-            { id: 17, title: "Yaourt à boire Danone Actimel", rayon: "Frais", img: "https://images.unsplash.com/photo-1571212723642-19723dd77d54?auto=format&fit=crop&w=500&q=80", badge: "Danone" },
-            { id: 18, title: "Yaourt Nature Nestlé", rayon: "Frais", img: "https://images.unsplash.com/photo-1488477181946-6428a0291777?auto=format&fit=crop&w=500&q=80", badge: "Nestlé" },
-            { id: 19, title: "Yaourt aux Fruits Nestlé Fruix", rayon: "Frais", img: "https://images.unsplash.com/photo-1571212723642-19723dd77d54?auto=format&fit=crop&w=500&q=80", badge: "Nestlé" },
-            { id: 20, title: "Lait UHT Entier Candia", rayon: "Frais", img: "https://images.unsplash.com/photo-1550583724-b2692b85b150?auto=format&fit=crop&w=500&q=80", badge: "Candia" },
-            { id: 21, title: "Lait UHT Demi-Écrémé Candia", rayon: "Frais", img: "https://images.unsplash.com/photo-1550583724-b2692b85b150?auto=format&fit=crop&w=500&q=80", badge: "Candia" },
+            { id: 17, title: "Yaourt Velouté Danone (Pack de 4)", rayon: "Frais", img: "https://images.unsplash.com/photo-1488477181946-6428a0291777?auto=format&fit=crop&w=500&q=80", badge: "Danone" },
+            { id: 18, title: "Yaourts Nature Carrefour (X8)", rayon: "Frais", img: "https://images.unsplash.com/photo-1488477181946-6428a0291777?auto=format&fit=crop&w=500&q=80", badge: "Carrefour" },
+            { id: 19, title: "Yaourt à boire Danone Actimel", rayon: "Frais", img: "https://images.unsplash.com/photo-1571212723642-19723dd77d54?auto=format&fit=crop&w=500&q=80", badge: "Danone" },
+            { id: 20, title: "Lait UHT Demi-Écrémé Carrefour 1L", rayon: "Frais", img: "https://images.unsplash.com/photo-1550583724-b2692b85b150?auto=format&fit=crop&w=500&q=80", badge: "Carrefour" },
+            { id: 21, title: "Lait UHT Entier Candia 1L", rayon: "Frais", img: "https://images.unsplash.com/photo-1550583724-b2692b85b150?auto=format&fit=crop&w=500&q=80", badge: "Candia" },
             { id: 22, title: "Lait Concentré Sucré Gloria", rayon: "Frais", img: "https://images.unsplash.com/photo-1563636619-e9143da7973b?auto=format&fit=crop&w=500&q=80", badge: "Gloria" },
             { id: 23, title: "Lait en Poudre Nido 400g", rayon: "Frais", img: "https://images.unsplash.com/photo-1550583724-b2692b85b150?auto=format&fit=crop&w=500&q=80", badge: "Nido" },
-            { id: 24, title: "Beurre Doux Président 250g", rayon: "Frais", img: "https://images.unsplash.com/photo-1589985270826-4b7bb135bc9d?auto=format&fit=crop&w=500&q=80", badge: "Président" },
+            { id: 24, title: "Beurre Doux Carrefour 250g", rayon: "Frais", img: "https://images.unsplash.com/photo-1589985270826-4b7bb135bc9d?auto=format&fit=crop&w=500&q=80", badge: "Carrefour" },
             { id: 25, title: "Fromage Kiri (Boîte de 8)", rayon: "Frais", img: "https://images.unsplash.com/photo-1486297678162-eb2a19b0a32d?auto=format&fit=crop&w=500&q=80", badge: "Kiri" },
-            { id: 26, title: "Fromage La Vache qui Rit", rayon: "Frais", img: "https://images.unsplash.com/photo-1486297678162-eb2a19b0a32d?auto=format&fit=crop&w=500&q=80", badge: "Fromage" },
-            { id: 27, title: "Crème Fraîche Président", rayon: "Frais", img: "https://images.unsplash.com/photo-1550583724-b2692b85b150?auto=format&fit=crop&w=500&q=80", badge: "Président" },
+            { id: 26, title: "Fromage Fondu Carrefour (Portions)", rayon: "Frais", img: "https://images.unsplash.com/photo-1486297678162-eb2a19b0a32d?auto=format&fit=crop&w=500&q=80", badge: "Carrefour" },
+            { id: 27, title: "Crème Fraîche Légère Carrefour 20cl", rayon: "Frais", img: "https://images.unsplash.com/photo-1550583724-b2692b85b150?auto=format&fit=crop&w=500&q=80", badge: "Carrefour" },
 
-            // 3. ÉPICERIE & BOISSONS
-            { id: 28, title: "Sac de Riz Parfumé Aroso 25kg", rayon: "Epicerie", img: "https://images.unsplash.com/photo-1586201375761-83865001e31c?auto=format&fit=crop&w=500&q=80", badge: "Aroso" },
-            { id: 29, title: "Huile Végétale Dinor 5L", rayon: "Epicerie", img: "https://images.unsplash.com/photo-1474979266404-7eaacbcd87c5?auto=format&fit=crop&w=500&q=80", badge: "Dinor" },
-            { id: 30, title: "Tomates Concentrées 3 Epis", rayon: "Epicerie", img: "https://images.unsplash.com/photo-1592924357228-91a4daadcfea?auto=format&fit=crop&w=500&q=80", badge: "Épicerie" },
-            { id: 31, title: "Pâtes Spaghettis Barilla 500g", rayon: "Epicerie", img: "https://images.unsplash.com/photo-1621996346565-e3d5d6281297?auto=format&fit=crop&w=500&q=80", badge: "Barilla" },
-            { id: 32, title: "Pack Eau Minérale Mbila 1.5L (6b)", rayon: "Epicerie", img: "https://images.unsplash.com/photo-1548839140-29a749e1cf4d?auto=format&fit=crop&w=500&q=80", badge: "Boisson" },
-            { id: 33, title: "Coca-Cola 1.5L (Pack de 6)", rayon: "Epicerie", img: "https://images.unsplash.com/photo-1554866585-cd94860890b7?auto=format&fit=crop&w=500&q=80", badge: "Coca-Cola" },
-            { id: 34, title: "Fanta Orange 1.5L", rayon: "Epicerie", img: "https://images.unsplash.com/photo-1622483767028-3f66f32aef97?auto=format&fit=crop&w=500&q=80", badge: "Fanta" },
-            { id: 35, title: "Café Soluble Nescafé 200g", rayon: "Epicerie", img: "https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?auto=format&fit=crop&w=500&q=80", badge: "Nescafé" },
-            { id: 36, title: "Sucre en Poudre Blanc 1kg", rayon: "Epicerie", img: "https://images.unsplash.com/photo-1581404917167-d40026e792c3?auto=format&fit=crop&w=500&q=80", badge: "Épicerie" },
-            { id: 37, title: "Farine de Blé 1kg", rayon: "Epicerie", img: "https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=500&q=80", badge: "Épicerie" },
-            { id: 38, title: "Mayonnaise JMC 500g", rayon: "Epicerie", img: "https://images.unsplash.com/photo-1563379091339-03b21ab4a4f8?auto=format&fit=crop&w=500&q=80", badge: "Condiment" },
-            { id: 39, title: "Bouillon Cube Maggi (Pot)", rayon: "Epicerie", img: "https://images.unsplash.com/photo-1546549032-9571cd6b27df?auto=format&fit=crop&w=500&q=80", badge: "Maggi" },
-            { id: 40, title: "Biscuits Lu Petit Beurre", rayon: "Epicerie", img: "https://images.unsplash.com/photo-1558961363-fa8fdf82db35?auto=format&fit=crop&w=500&q=80", badge: "Biscuit" },
+            // 3. ÉPICERIE & CARREFOUR
+            { id: 28, title: "Sac de Riz Basmati Carrefour 5kg", rayon: "Epicerie", img: "https://images.unsplash.com/photo-1586201375761-83865001e31c?auto=format&fit=crop&w=500&q=80", badge: "Carrefour" },
+            { id: 29, title: "Huile de Tournesol Carrefour 1L", rayon: "Epicerie", img: "https://images.unsplash.com/photo-1474979266404-7eaacbcd87c5?auto=format&fit=crop&w=500&q=80", badge: "Carrefour" },
+            { id: 30, title: "Huile Végétale Dinor 5L", rayon: "Epicerie", img: "https://images.unsplash.com/photo-1474979266404-7eaacbcd87c5?auto=format&fit=crop&w=500&q=80", badge: "Dinor" },
+            { id: 31, title: "Purée de Tomates Carrefour 3x200g", rayon: "Epicerie", img: "https://images.unsplash.com/photo-1592924357228-91a4daadcfea?auto=format&fit=crop&w=500&q=80", badge: "Carrefour" },
+            { id: 32, title: "Pâtes Spaghettis Carrefour 500g", rayon: "Epicerie", img: "https://images.unsplash.com/photo-1621996346565-e3d5d6281297?auto=format&fit=crop&w=500&q=80", badge: "Carrefour" },
+            { id: 33, title: "Pack Eau Minérale Carrefour 1.5L (6b)", rayon: "Epicerie", img: "https://images.unsplash.com/photo-1548839140-29a749e1cf4d?auto=format&fit=crop&w=500&q=80", badge: "Carrefour" },
+            { id: 34, title: "Coca-Cola 1.5L (Pack de 6)", rayon: "Epicerie", img: "https://images.unsplash.com/photo-1554866585-cd94860890b7?auto=format&fit=crop&w=500&q=80", badge: "Coca-Cola" },
+            { id: 35, title: "Jus d'Orange 100% Carrefour 1L", rayon: "Epicerie", img: "https://images.unsplash.com/photo-1613478223719-2ab802602423?auto=format&fit=crop&w=500&q=80", badge: "Carrefour" },
+            { id: 36, title: "Café Moulu Classique Carrefour 250g", rayon: "Epicerie", img: "https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?auto=format&fit=crop&w=500&q=80", badge: "Carrefour" },
+            { id: 37, title: "Sucre en Poudre Blanc Carrefour 1kg", rayon: "Epicerie", img: "https://images.unsplash.com/photo-1581404917167-d40026e792c3?auto=format&fit=crop&w=500&q=80", badge: "Carrefour" },
+            { id: 38, title: "Farine de Blé T55 Carrefour 1kg", rayon: "Epicerie", img: "https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=500&q=80", badge: "Carrefour" },
+            { id: 39, title: "Mayonnaise en Tube Carrefour 250g", rayon: "Epicerie", img: "https://images.unsplash.com/photo-1563379091339-03b21ab4a4f8?auto=format&fit=crop&w=500&q=80", badge: "Carrefour" },
+            { id: 40, title: "Biscuits Sablés Pur Beurre Carrefour", rayon: "Epicerie", img: "https://images.unsplash.com/photo-1558961363-fa8fdf82db35?auto=format&fit=crop&w=500&q=80", badge: "Carrefour" },
 
             // 4. HYGIÈNE & BEAUTÉ
-            { id: 41, title: "Savon de Toilette Palmolive", rayon: "Hygiene", img: "https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?auto=format&fit=crop&w=500&q=80", badge: "Palmolive" },
-            { id: 42, title: "Gel Douche Dop 250ml", rayon: "Hygiene", img: "https://images.unsplash.com/photo-1535585209827-a15fcdbc4c2d?auto=format&fit=crop&w=500&q=80", badge: "Dop" },
-            { id: 43, title: "Shampooing Head & Shoulders", rayon: "Hygiene", img: "https://images.unsplash.com/photo-1535585209827-a15fcdbc4c2d?auto=format&fit=crop&w=500&q=80", badge: "Shampoing" },
-            { id: 44, title: "Dentifrice Colgate Total 100g", rayon: "Hygiene", img: "https://images.unsplash.com/photo-1556228720-195a672e8a03?auto=format&fit=crop&w=500&q=80", badge: "Colgate" },
-            { id: 45, title: "Déodorant Spray Axe pour Homme", rayon: "Hygiene", img: "https://images.unsplash.com/photo-1523293182086-7651a899d37f?auto=format&fit=crop&w=500&q=80", badge: "Axe" },
+            { id: 41, title: "Savon Douche Surgras Carrefour 250ml", rayon: "Hygiene", img: "https://images.unsplash.com/photo-1535585209827-a15fcdbc4c2d?auto=format&fit=crop&w=500&q=80", badge: "Carrefour" },
+            { id: 42, title: "Savon de Toilette Palmolive", rayon: "Hygiene", img: "https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?auto=format&fit=crop&w=500&q=80", badge: "Palmolive" },
+            { id: 43, title: "Shampooing Douceur Carrefour 400ml", rayon: "Hygiene", img: "https://images.unsplash.com/photo-1535585209827-a15fcdbc4c2d?auto=format&fit=crop&w=500&q=80", badge: "Carrefour" },
+            { id: 44, title: "Dentifrice Carrefour Protection 75ml", rayon: "Hygiene", img: "https://images.unsplash.com/photo-1556228720-195a672e8a03?auto=format&fit=crop&w=500&q=80", badge: "Carrefour" },
+            { id: 45, title: "Déodorant Bille Carrefour Homme 50ml", rayon: "Hygiene", img: "https://images.unsplash.com/photo-1523293182086-7651a899d37f?auto=format&fit=crop&w=500&q=80", badge: "Carrefour" },
             { id: 46, title: "Lait Corps Hydratant Nivea 400ml", rayon: "Hygiene", img: "https://images.unsplash.com/photo-1556228720-195a672e8a03?auto=format&fit=crop&w=500&q=80", badge: "Nivea" },
-            { id: 47, title: "Rasoirs Jetables Gillette (Pack de 5)", rayon: "Hygiene", img: "https://images.unsplash.com/photo-1556228720-195a672e8a03?auto=format&fit=crop&w=500&q=80", badge: "Gillette" },
-            { id: 48, title: "Serviettes Hygiéniques Always", rayon: "Hygiene", img: "https://images.unsplash.com/photo-1584551246679-0daf3d275d0f?auto=format&fit=crop&w=500&q=80", badge: "Always" },
+            { id: 47, title: "Rasoirs Jetables Carrefour (X10)", rayon: "Hygiene", img: "https://images.unsplash.com/photo-1556228720-195a672e8a03?auto=format&fit=crop&w=500&q=80", badge: "Carrefour" },
+            { id: 48, title: "Serviettes Hygiéniques Normal Carrefour (X16)", rayon: "Hygiene", img: "https://images.unsplash.com/photo-1584551246679-0daf3d275d0f?auto=format&fit=crop&w=500&q=80", badge: "Carrefour" },
 
             // 5. RESTAURANT & TRAITEUR (PLATS & GÂTEAUX)
-            { id: 49, title: "Poulet Braisé & Alloco Maison", rayon: "Restaurant", img: "https://images.unsplash.com/photo-1555939594-58d7cb561ad1?auto=format&fit=crop&w=500&q=80", badge: "Plat" },
+            { id: 49, title: "Poulet Braisé & Alloco du Traiteur", rayon: "Restaurant", img: "https://images.unsplash.com/photo-1555939594-58d7cb561ad1?auto=format&fit=crop&w=500&q=80", badge: "Traiteur" },
             { id: 50, title: "Gâteau d'Anniversaire Chocolat 1Kg", rayon: "Restaurant", img: "https://images.unsplash.com/photo-1578985545062-69928b1d9587?auto=format&fit=crop&w=500&q=80", badge: "Pâtisserie" },
-            { id: 51, title: "Gâteau Vanille & Fraise", rayon: "Restaurant", img: "https://images.unsplash.com/photo-1535141192574-5d4897c13136?auto=format&fit=crop&w=500&q=80", badge: "Pâtisserie" },
+            { id: 51, title: "Tarte aux Fraises Pâtissière", rayon: "Restaurant", img: "https://images.unsplash.com/photo-1535141192574-5d4897c13136?auto=format&fit=crop&w=500&q=80", badge: "Pâtisserie" },
             { id: 52, title: "Brochettes de Viande (Portion de 5)", rayon: "Restaurant", img: "https://images.unsplash.com/photo-1555939594-58d7cb561ad1?auto=format&fit=crop&w=500&q=80", badge: "Grillade" },
-            { id: 53, title: "Poisson Braisé & Manioc (Foufou)", rayon: "Restaurant", img: "https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?auto=format&fit=crop&w=500&q=80", badge: "Spécialité" },
-            { id: 54, title: "Burger Maison & Frites", rayon: "Restaurant", img: "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=500&q=80", badge: "Fast-Food" },
-            { id: 55, title: "Pizza Royale 4 Fromages", rayon: "Restaurant", img: "https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&w=500&q=80", badge: "Pizza" },
-            { id: 56, title: "Jus de Gingembre Naturel 50cl", rayon: "Restaurant", img: "https://images.unsplash.com/photo-1613478223719-2ab802602423?auto=format&fit=crop&w=500&q=80", badge: "Boisson" },
-            { id: 57, title: "Jus de Bisap (Bissap) 50cl", rayon: "Restaurant", img: "https://images.unsplash.com/photo-1546173159-315724a31696?auto=format&fit=crop&w=500&q=80", badge: "Boisson" },
-            { id: 58, title: "Croissant au Beurre du Jour", rayon: "Restaurant", img: "https://images.unsplash.com/photo-1555507036-ab1f4038808a?auto=format&fit=crop&w=500&q=80", badge: "Viennoiserie" }
+            { id: 53, title: "Burger Maison & Frites croustillantes", rayon: "Restaurant", img: "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=500&q=80", badge: "Fast-Food" },
+            { id: 54, title: "Pizza Royale 4 Fromages", rayon: "Restaurant", img: "https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&w=500&q=80", badge: "Pizza" },
+            { id: 55, title: "Jus de Gingembre Artisanal 50cl", rayon: "Restaurant", img: "https://images.unsplash.com/photo-1613478223719-2ab802602423?auto=format&fit=crop&w=500&q=80", badge: "Boisson" },
+            { id: 56, title: "Croissants Pur Beurre (Lot de 4)", rayon: "Restaurant", img: "https://images.unsplash.com/photo-1555507036-ab1f4038808a?auto=format&fit=crop&w=500&q=80", badge: "Viennoiserie" }
         ];
 
         let currentRayonFilter = 'Tous';
+        // Ensemble pour mémoriser les ID de tous les produits cochés, peu importe le rayon affiché
+        let selectedProductTitles = new Set();
 
         function renderProducts(listToDisplay = null) {
             const grid = document.getElementById('productGrid');
@@ -274,6 +274,7 @@
             }
 
             data.forEach(p => {
+                let isChecked = selectedProductTitles.has(p.title) ? 'checked' : '';
                 let card = document.createElement('div');
                 card.className = 'product-card';
                 card.innerHTML = `
@@ -286,12 +287,33 @@
                     </div>
                     <div class="product-action">
                         <label class="checkbox-container">
-                            <input type="checkbox" value="${p.title}" onchange="updateCart()"> Sélectionner
+                            <input type="checkbox" value="${p.title}" ${isChecked} onchange="toggleProductSelection(this)"> Sélectionner
                         </label>
                     </div>
                 `;
                 grid.appendChild(card);
             });
+        }
+
+        function toggleProductSelection(checkbox) {
+            if(checkbox.checked) {
+                selectedProductTitles.add(checkbox.value);
+            } else {
+                selectedProductTitles.delete(checkbox.value);
+            }
+            updateCartDisplay();
+        }
+
+        function updateCartDisplay() {
+            let count = selectedProductTitles.size;
+            document.getElementById('cartCount').innerText = count;
+
+            let cartBar = document.getElementById('floating-cart');
+            if(count > 0) {
+                cartBar.classList.add('visible');
+            } else {
+                cartBar.classList.remove('visible');
+            }
         }
 
         function setRayonFilter(rayon) {
@@ -300,11 +322,10 @@
             let activeTag = document.getElementById('tag-' + rayon);
             if(activeTag) activeTag.classList.add('active');
             
-            document.getElementById('searchInput').value = ''; // Vide la recherche textuelle
+            document.getElementById('searchInput').value = ''; 
             renderProducts();
         }
 
-        // Recherche dynamique intelligente
         function filterProducts() {
             let query = document.getElementById('searchInput').value.toLowerCase().trim();
             
@@ -317,35 +338,21 @@
             renderProducts(filtered);
         }
 
-        function updateCart() {
-            let checkboxes = document.querySelectorAll('.product-action input[type="checkbox"]:checked');
-            let count = checkboxes.length;
-            document.getElementById('cartCount').innerText = count;
-
-            let cartBar = document.getElementById('floating-cart');
-            if(count > 0) {
-                cartBar.classList.add('visible');
-            } else {
-                cartBar.classList.remove('visible');
-            }
-        }
-
         function sendOrder(type) {
-            let checkboxes = document.querySelectorAll('.product-action input[type="checkbox"]:checked');
-            if(checkboxes.length === 0) return;
+            if(selectedProductTitles.size === 0) return;
 
             let itemsList = "";
-            checkboxes.forEach((cb) => {
-                itemsList += `%0A- ${cb.value}`;
+            selectedProductTitles.forEach((title) => {
+                itemsList += `%0A- ${title}`;
             });
 
-            let message = `Bonjour Super U Brazzaville, je souhaite commander les articles suivants :${itemsList}%0AMerci de me communiquer les prix et la disponibilité.`;
+            let message = `Bonjour, je souhaite commander les articles suivants de votre supermarché :${itemsList}%0AMerci de me confirmer le total et la disponibilité.`;
 
             if(type === 'whatsapp') {
                 let waUrl = `https://wa.me/242050447163?text=${message}`;
                 window.open(waUrl, '_blank');
             } else if(type === 'mail') {
-                let mailSubject = encodeURIComponent("Commande / Demande - Super U Brazzaville");
+                let mailSubject = encodeURIComponent("Commande Groupée - Supermarché");
                 let mailBody = encodeURIComponent(message.replace(/%0A/g, '\n'));
                 window.location.href = `mailto:blessingtsiobinda@gmail.com?subject=${mailSubject}&body=${mailBody}`;
             }
