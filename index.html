@@ -14,7 +14,7 @@
             --text-dark: #333;
         }
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
-        body { background-color: var(--bg-light); color: var(--text-dark); padding-bottom: 80px; }
+        body { background-color: var(--bg-light); color: var(--text-dark); padding-bottom: 90px; }
 
         /* Header */
         header { background-color: var(--primary); color: white; padding: 15px 20px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 2px 5px rgba(0,0,0,0.1); position: sticky; top: 0; z-index: 100; }
@@ -44,13 +44,13 @@
         .feature-card p { font-size: 0.9rem; color: #666; }
 
         /* Catalogue & Rayons */
-        .section-title { font-size: 1.4rem; margin: 30px 0 15px 0; color: var(--primary); border-left: 5px solid var(--primary); padding-left: 10px; display: flex; justify-content: space-between; align-items: center; }
+        .section-title { font-size: 1.4rem; margin: 30px 0 15px 0; color: var(--primary); border-left: 5px solid var(--primary); padding-left: 10px; }
         .filter-tags { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 20px; }
         .tag { background: white; border: 1px solid #ccc; padding: 6px 14px; border-radius: 20px; cursor: pointer; font-size: 0.9rem; font-weight: 500; }
         .tag.active, .tag:hover { background: var(--primary); color: white; border-color: var(--primary); }
 
         .product-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 20px; }
-        .product-card { background: white; border-radius: 10px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.05); display: flex; flex-direction: column; justify-content: space-between; position: relative; }
+        .product-card { background: white; border-radius: 10px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.05); display: flex; flex-direction: column; justify-content: space-between; }
         .product-img { height: 160px; width: 100%; object-fit: cover; }
         .product-info { padding: 15px; }
         .product-badge { display: inline-block; background-color: #e3f2fd; color: var(--primary); padding: 3px 8px; border-radius: 4px; font-size: 0.75rem; margin-bottom: 8px; font-weight: bold; }
@@ -100,68 +100,61 @@
     <!-- Hero & Recherche -->
     <div class="hero">
         <h2>Votre Supermarché Moderne</h2>
-        <p>Sélectionnez vos produits ou plats préférés et commandez en un clic sans prix affichés !</p>
+        <p>Recherchez vos produits, laits, yaourts ou plats et commandez en un clic !</p>
         <div class="search-box">
-            <input type="text" id="searchInput" placeholder="Rechercher un produit, un plat, un gâteau..." onkeyup="filterProducts()">
+            <input type="text" id="searchInput" placeholder="Ex: Danone, Nestlé, Lait, Poulet, Gâteau..." onkeyup="filterProducts()">
             <button><i class="fa-solid fa-search"></i></button>
         </div>
     </div>
 
     <div class="container">
 
-        <!-- 3 Blocs Principaux (Localisation, Restaurant, Rayons) -->
+        <!-- 3 Blocs Principaux -->
         <div class="grid-cards">
-            <!-- 1. Localisation -->
             <a href="https://www.google.com/maps/search/Super+U+Brazzaville/" target="_blank" class="feature-card">
                 <i class="fa-solid fa-location-dot"></i>
                 <h3>1. Localisation Super U</h3>
                 <p>Trouvez facilement notre magasin au cœur de Brazzaville sur Google Maps.</p>
             </a>
 
-            <!-- 2. Restaurant & Traiteur -->
             <div class="feature-card" onclick="filterByRayon('Restaurant')">
                 <i class="fa-solid fa-utensils"></i>
                 <h3>2. Service Restaurant & Traiteur</h3>
-                <p>Découvrez nos plats cuisinés, pâtisseries et gâteaux frais à commander.</p>
+                <p>Découvrez nos plats cuisinés, grillades et gâteaux frais à commander.</p>
             </div>
 
-            <!-- 3. Rayons Supermarché -->
             <div class="feature-card" onclick="filterByRayon('Tous')">
                 <i class="fa-solid fa-boxes-stacked"></i>
                 <h3>3. Rayons & Produits</h3>
-                <p>Parcourez l'épicerie, le frais, les boissons et bien plus encore.</p>
+                <p>Parcourez l'épicerie, les laits, les yaourts et les produits frais.</p>
             </div>
         </div>
 
         <!-- Filtres par Rayons -->
-        <div class="section-title">
-            <span>Catalogue & Produits Disponibles</span>
-        </div>
+        <div class="section-title">Catalogue & Produits Disponibles</div>
         <div class="filter-tags">
             <div class="tag active" onclick="filterByRayon('Tous')">Tous les articles</div>
-            <div class="tag" onclick="filterByRayon('Restaurant')">🍔 Plats & Gâteaux (Restaurant)</div>
-            <div class="tag" onclick="filterByRayon('Frais')">🥛 Produits Frais & Laitiers</div>
+            <div class="tag" onclick="filterByRayon('Restaurant')">🍔 Plats & Gâteaux</div>
+            <div class="tag" onclick="filterByRayon('Frais')">🥛 Laits & Yaourts (Frais)</div>
             <div class="tag" onclick="filterByRayon('Epicerie')">🍚 Épicerie & Boissons</div>
         </div>
 
         <!-- Grille Dynamique des Produits -->
-        <div class="product-grid" id="productGrid">
-            <!-- Les produits seront chargés ici dynamiquement -->
-        </div>
+        <div class="product-grid" id="productGrid"></div>
 
-        <!-- Espace Administrateur Caché (Protégé par mot de passe) -->
+        <!-- Espace Administrateur Caché -->
         <div class="admin-trigger">
             <span onclick="toggleAdminPanel()"><i class="fa-solid fa-lock"></i> Accès Gestionnaire (Admin)</span>
         </div>
 
         <div id="admin-panel">
             <h3 style="margin-bottom: 15px; color: var(--accent);">Panneau de Gestion Sécurisé</h3>
-            <p style="font-size: 0.85rem; color: #666; margin-bottom: 15px;">Entrez le mot de passe pour ajouter un nouveau produit ou plat au catalogue :</p>
+            <p style="font-size: 0.85rem; color: #666; margin-bottom: 15px;">Entrez le mot de passe pour ajouter un produit :</p>
             <input type="password" id="adminPass" placeholder="Mot de passe (ex: superu2026)">
-            <input type="text" id="newTitle" placeholder="Nom du produit ou plat">
+            <input type="text" id="newTitle" placeholder="Nom du produit ou plat (ex: Yaourt Danone 4packs)">
             <select id="newRayon">
                 <option value="Restaurant">Restaurant (Plat/Gâteau)</option>
-                <option value="Frais">Rayon Frais</option>
+                <option value="Frais">Rayon Frais (Lait/Yaourt)</option>
                 <option value="Epicerie">Épicerie</option>
             </select>
             <input type="text" id="newImg" placeholder="Lien de l'image (URL photo)">
@@ -170,14 +163,14 @@
 
     </div>
 
-    <!-- Panne de Commande Flottant -->
+    <!-- Panier Flottant -->
     <div id="floating-cart">
         <div>
             <strong>Sélection : <span id="cartCount">0</span> article(s)</strong>
         </div>
         <div class="cart-btns">
             <button class="btn-order-wa" onclick="sendOrder('whatsapp')">
-                <i class="fa-brands fa-whatsapp"></i> Commander (WhatsApp)
+                <i class="fa-brands fa-whatsapp"></i> Commander (WhatsApp: 050447163)
             </button>
             <button class="btn-order-mail" onclick="sendOrder('mail')">
                 <i class="fa-solid fa-envelope"></i> Commander (E-mail)
@@ -191,29 +184,30 @@
     </footer>
 
     <script>
-        // Base de données initiale (Modifiable par le gestionnaire)
+        // Base de données avec marques de laits, yaourts et plats
         let products = [
-            { id: 1, title: "Poulet Braisé & Alloco", rayon: "Restaurant", img: "https://images.unsplash.com/photo-1555939594-58d7cb561ad1?auto=format&fit=crop&w=500&q=80", badge: "Plat du Chef" },
-            { id: 2, title: "Gâteau d'Anniversaire Chocolat", rayon: "Restaurant", img: "https://images.unsplash.com/photo-1578985545062-69928b1d9587?auto=format&fit=crop&w=500&q=80", badge: "Pâtisserie" },
-            { id: 3, title: "Pack Lait UHT & Yaourts Frais", rayon: "Frais", img: "https://images.unsplash.com/photo-1550583724-b2692b85b150?auto=format&fit=crop&w=500&q=80", badge: "Rayon Frais" },
-            { id: 4, title: "Huile Végétale & Sac de Riz 25kg", rayon: "Epicerie", img: "https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=500&q=80", badge: "Épicerie" },
-            { id: 5, title: "Jus de Fruits Naturels 1L", rayon: "Epicerie", img: "https://images.unsplash.com/photo-1613478223719-2ab802602423?auto=format&fit=crop&w=500&q=80", badge: "Boissons" }
+            { id: 1, title: "Yaourt Velouté Danone (Pack de 4)", rayon: "Frais", img: "https://images.unsplash.com/photo-1488477181946-6428a0291777?auto=format&fit=crop&w=500&q=80", badge: "Yaourt Danone" },
+            { id: 2, title: "Yaourt Nature / Fruité Nestlé", rayon: "Frais", img: "https://images.unsplash.com/photo-1571212723642-19723dd77d54?auto=format&fit=crop&w=500&q=80", badge: "Yaourt Nestlé" },
+            { id: 3, title: "Lait UHT Entré / Demi-Ecrémé Candia", rayon: "Frais", img: "https://images.unsplash.com/photo-1550583724-b2692b85b150?auto=format&fit=crop&w=500&q=80", badge: "Lait Candia" },
+            { id: 4, title: "Lait Concentré Sucré Gloria / Nestlé", rayon: "Frais", img: "https://images.unsplash.com/photo-1563636619-e9143da7973b?auto=format&fit=crop&w=500&q=80", badge: "Lait Concentré" },
+            { id: 5, title: "Poulet Braisé & Alloco Maison", rayon: "Restaurant", img: "https://images.unsplash.com/photo-1555939594-58d7cb561ad1?auto=format&fit=crop&w=500&q=80", badge: "Plat Restaurant" },
+            { id: 6, title: "Gâteau d'Anniversaire Chocolat / Vanille", rayon: "Restaurant", img: "https://images.unsplash.com/photo-1578985545062-69928b1d9587?auto=format&fit=crop&w=500&q=80", badge: "Pâtisserie" },
+            { id: 7, title: "Sac de Riz Parfumé Aroso 25kg", rayon: "Epicerie", img: "https://images.unsplash.com/photo-1586201375761-83865001e31c?auto=format&fit=crop&w=500&q=80", badge: "Épicerie" },
+            { id: 8, title: "Huile Végétale Raffinée Dinor", rayon: "Epicerie", img: "https://images.unsplash.com/photo-1474979266404-7eaacbcd87c5?auto=format&fit=crop&w=500&q=80", badge: "Épicerie" }
         ];
 
         let currentFilter = 'Tous';
 
-        // Affichage des produits
         function renderProducts() {
             const grid = document.getElementById('productGrid');
             grid.innerHTML = '';
 
             let filtered = products.filter(p => {
-                let matchesRayon = (currentFilter === 'Tous' || p.rayon === currentFilter);
-                return matchesRayon;
+                return (currentFilter === 'Tous' || p.rayon === currentFilter);
             });
 
             if(filtered.length === 0) {
-                grid.innerHTML = '<p style="grid-column: 1/-1; text-align: center; color: #777; padding: 30px;">Aucun produit trouvé dans cette catégorie.</p>';
+                grid.innerHTML = '<p style="grid-column: 1/-1; text-align: center; color: #777; padding: 30px;">Aucun produit trouvé.</p>';
                 return;
             }
 
@@ -238,7 +232,6 @@
             });
         }
 
-        // Filtrer par Rayon
         function filterByRayon(rayon) {
             currentFilter = rayon;
             document.querySelectorAll('.tag').forEach(t => t.classList.remove('active'));
@@ -246,7 +239,6 @@
             renderProducts();
         }
 
-        // Barre de recherche
         function filterProducts() {
             let query = document.getElementById('searchInput').value.toLowerCase();
             const grid = document.getElementById('productGrid');
@@ -280,7 +272,6 @@
             });
         }
 
-        // Gestion du Panier (Sélection)
         function updateCart() {
             let checkboxes = document.querySelectorAll('.product-action input[type="checkbox"]:checked');
             let count = checkboxes.length;
@@ -294,17 +285,16 @@
             }
         }
 
-        // Envoyer la commande (WhatsApp ou Mail)
         function sendOrder(type) {
             let checkboxes = document.querySelectorAll('.product-action input[type="checkbox"]:checked');
             if(checkboxes.length === 0) return;
 
             let itemsList = "";
-            checkboxes.forEach((cb, index) => {
+            checkboxes.forEach((cb) => {
                 itemsList += `%0A- ${cb.value}`;
             });
 
-            let message = `Bonjour Super U Brazzaville, je souhaite commander les articles suivants :${itemsList}%0AMerci de me donner les prix et les modalités de livraison.`;
+            let message = `Bonjour Super U Brazzaville, je souhaite commander les articles suivants :${itemsList}%0AMerci de me communiquer les prix et la disponibilité.`;
 
             if(type === 'whatsapp') {
                 let waUrl = `https://wa.me/242050447163?text=${message}`;
@@ -316,16 +306,13 @@
             }
         }
 
-        // Afficher / Cacher le panneau Admin avec mot de passe
         function toggleAdminPanel() {
             let panel = document.getElementById('admin-panel');
             panel.style.display = panel.style.display === 'block' ? 'none' : 'block';
         }
 
-        // Ajouter un produit (Protégé par MDP)
         function addNewProduct() {
             let pass = document.getElementById('adminPass').value;
-            // Mot de passe modifiable ici (ex: superu2026)
             if(pass !== 'superu2026') {
                 alert('Mot de passe incorrect !');
                 return;
@@ -345,7 +332,7 @@
                 title: title,
                 rayon: rayon,
                 img: img,
-                badge: rayon === 'Restaurant' ? 'Plat/Gâteau' : 'Nouveau'
+                badge: 'Nouveau'
             });
 
             document.getElementById('newTitle').value = '';
@@ -353,10 +340,9 @@
             document.getElementById('adminPass').value = '';
             toggleAdminPanel();
             renderProducts();
-            alert('Produit ajouté avec succès au catalogue !');
+            alert('Produit ajouté avec succès !');
         }
 
-        // Initialisation au chargement
         renderProducts();
     </script>
 </body>
